@@ -267,8 +267,8 @@ const PLAYIN = [
   { id:'pi2', round:'playin', label:'West 8 vs 7', t1:'Portland Trail Blazers', s1:8, t2:'Phoenix Suns', s2:7, score1:114, score2:110, winner:'Portland Trail Blazers', badge:'b-final', badgeText:'Final' },
   { id:'pi3', round:'playin', label:'East 7 vs 8', t1:'Philadelphia 76ers', s1:7, t2:'Orlando Magic', s2:8, score1:109, score2:97, winner:'Philadelphia 76ers', badge:'b-final', badgeText:'Final' },
   { id:'pi4', round:'playin', label:'West 10 vs 9', t1:'Golden State Warriors', s1:10, t2:'LA Clippers', s2:9, score1:126, score2:121, winner:'Golden State Warriors', badge:'b-final', badgeText:'Final' },
-  { id:'pi5', round:'playin', label:'East — #8 seed', t1:'Orlando Magic', s1:null, t2:'Charlotte Hornets', s2:null, score1:null, score2:null, winner:null, badge:'b-tonight', badgeText:'Tonight 7:30 ET' },
-  { id:'pi6', round:'playin', label:'West — #8 seed', t1:'Phoenix Suns', s1:null, t2:'Golden State Warriors', s2:null, score1:null, score2:null, winner:null, badge:'b-tonight', badgeText:'Tonight 10 ET' },
+  { id:'pi5', round:'playin', label:'East — #8 seed', t1:'Orlando Magic', s1:null, t2:'Charlotte Hornets', s2:null, score1:null, score2:null, winner:null, badge:'b-tonight', badgeText:'Fri Apr 18, 7:30 ET' },
+  { id:'pi6', round:'playin', label:'West — #8 seed', t1:'Phoenix Suns', s1:null, t2:'Golden State Warriors', s2:null, score1:null, score2:null, winner:null, badge:'b-tonight', badgeText:'Fri Apr 18, 10 ET' },
 ];
 
 let matchups = [
@@ -296,8 +296,8 @@ let playinPicks = {
   Jake:    { pi1:'Charlotte Hornets', pi2:'Portland Trail Blazers', pi3:'Orlando Magic',       pi4:'LA Clippers',           pi5:'', pi6:'' },
   Nicole:  { pi1:'Charlotte Hornets', pi2:'Phoenix Suns',           pi3:'Philadelphia 76ers',  pi4:'Golden State Warriors', pi5:'', pi6:'' },
   David:   { pi1:'Charlotte Hornets', pi2:'Portland Trail Blazers', pi3:'Philadelphia 76ers',  pi4:'LA Clippers',           pi5:'', pi6:'' },
-  Eric:    { pi1:'Charlotte Hornets', pi2:'Orlando Magic',          pi3:'LA Clippers',         pi4:'Portland Trail Blazers',pi5:'', pi6:'' },
-  Ben:     { pi1:'Charlotte Hornets', pi2:'Phoenix Suns',           pi3:'LA Clippers',         pi4:'Orlando Magic',         pi5:'', pi6:'' },
+  Eric:    { pi1:'Charlotte Hornets', pi2:'Portland Trail Blazers', pi3:'Orlando Magic',        pi4:'LA Clippers',           pi5:'', pi6:'' },
+  Ben:     { pi1:'Charlotte Hornets', pi2:'Phoenix Suns',           pi3:'Orlando Magic',        pi4:'LA Clippers',           pi5:'', pi6:'' },
   Allison: { pi1:'Charlotte Hornets', pi2:'Phoenix Suns',           pi3:'Philadelphia 76ers',  pi4:'LA Clippers',           pi5:'', pi6:'' },
 };
 
@@ -422,10 +422,15 @@ async function savePicks() {
       rows.push({ player: p, matchup: pid, pick: (playinPicks[p][pid] || '') });
     });
   });
-  // Read current UI values for active player
+  // Read current UI values for active player bracket picks
   matchups.forEach(m => {
     const el = document.getElementById(`pick_${m.id}`);
     if (el) picks[activePickPlayer][m.id] = el.value;
+  });
+  // Read current UI values for active player playin picks
+  PLAYIN.forEach(pg => {
+    const el = document.getElementById(`ppi_${pg.id}`);
+    if (el) playinPicks[activePickPlayer][pg.id] = el.value;
   });
   const saveRows = [];
   PLAYERS.forEach(p => {
@@ -672,7 +677,20 @@ function renderPicksPanel() {
   document.getElementById('pickPlayerTabs').innerHTML=PLAYERS.map(p=>
     `<button class="ptab ${p===activePickPlayer?'active':''}" onclick="setPickPlayer('${p}')">${p}</button>`).join('');
   const pp=picks[activePickPlayer];
+  const ppi=playinPicks[activePickPlayer]||{};
   let html='';
+
+  // Play-in games (editable)
+  html+=`<div style="font-size:11px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin:4px 0 8px;grid-column:1/-1;">Play-In Tournament</div>`;
+  PLAYIN.forEach(pg => {
+    const current = ppi[pg.id] || '';
+    const isSettled = !!pg.winner;
+    const opts = `<option value="">— no pick —</option><option value="${pg.t1}" ${current===pg.t1?'selected':''}>${pg.t1}</option><option value="${pg.t2}" ${current===pg.t2?'selected':''}>${pg.t2}</option>`;
+    html+=`<div class="panel-card"><div class="panel-card-label">${pg.label}</div><select class="pick-sel" id="ppi_${pg.id}" ${isSettled?'disabled title="Game already played"':''}>${opts}</select>${isSettled?`<div style="font-size:10px;color:#aaa;margin-top:4px;">Final — locked</div>`:''}</div>`;
+  });
+
+  // Bracket picks
+  html+=`<div style="font-size:11px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin:12px 0 8px;grid-column:1/-1;">Playoff Bracket</div>`;
   matchups.forEach(m => {
     const hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD'), isTBD=m.t1==='TBD'&&m.t2==='TBD';
     if(isTBD)return;
@@ -683,8 +701,10 @@ function renderPicksPanel() {
   document.getElementById('picksGrid').innerHTML=html;
 }
 function setPickPlayer(p){
-  // Save current before switching
+  // Save current bracket picks before switching
   matchups.forEach(m=>{const el=document.getElementById(`pick_${m.id}`);if(el)picks[activePickPlayer][m.id]=el.value;});
+  // Save current playin picks before switching
+  PLAYIN.forEach(pg=>{const el=document.getElementById(`ppi_${pg.id}`);if(el)playinPicks[activePickPlayer][pg.id]=el.value;});
   activePickPlayer=p; renderPicksPanel();
 }
 

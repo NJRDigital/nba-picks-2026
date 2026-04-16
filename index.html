@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 NBA Playoff Picks</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #111; min-height: 100vh; }
+  body.dark { background: #0f0f0f; color: #eee; }
+
+  .page { max-width: 1100px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+
+  /* Deadline */
+  .deadline-bar { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 12px 16px; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  body.dark .deadline-bar { background: #1a1a1a; border-color: #333; }
+  .deadline-bar label { font-size: 12px; font-weight: 500; color: #666; white-space: nowrap; }
+  .deadline-display { font-size: 13px; color: #111; font-weight: 500; flex: 1; }
+  body.dark .deadline-display { color: #eee; }
+  .deadline-sub { font-size: 11px; color: #999; flex: 1; }
+
+  /* Toolbar */
+  .toolbar { display: flex; align-items: center; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .app-title { font-size: 19px; font-weight: 500; color: #111; margin-right: 4px; }
+  body.dark .app-title { color: #eee; }
+  .t-divider { width: 0.5px; height: 20px; background: #ddd; margin: 0 2px; }
+  body.dark .t-divider { background: #444; }
+  .tool-btn { padding: 5px 13px; border-radius: 8px; border: 0.5px solid #ddd; background: transparent; font-size: 12px; color: #666; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+  body.dark .tool-btn { border-color: #444; color: #aaa; }
+  .tool-btn:hover { background: #f0f0f0; border-color: #bbb; }
+  body.dark .tool-btn:hover { background: #2a2a2a; }
+  .tool-btn.active { background: #fff; border-color: #999; color: #111; font-weight: 500; }
+  body.dark .tool-btn.active { background: #2a2a2a; border-color: #666; color: #eee; }
+
+  /* Status bar */
+  .status-bar { font-size: 11px; color: #999; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
+  .status-dot.live { background: #22c55e; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* Panel */
+  .panel { background: #f0f0f0; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 16px; margin-bottom: 1.25rem; display: none; }
+  body.dark .panel { background: #1a1a1a; border-color: #333; }
+  .panel.open { display: block; }
+  .panel-title { font-size: 13px; font-weight: 500; color: #111; margin-bottom: 12px; }
+  body.dark .panel-title { color: #eee; }
+  .panel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 9px; }
+  .panel-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 8px; padding: 10px 12px; }
+  body.dark .panel-card { background: #222; border-color: #333; }
+  .panel-card-label { font-size: 11px; color: #777; margin-bottom: 7px; }
+  .pick-sel, .win-sel { font-size: 12px; padding: 4px 6px; border-radius: 8px; border: 0.5px solid #ddd; background: #fff; color: #111; width: 100%; }
+  body.dark .pick-sel, body.dark .win-sel { background: #1a1a1a; border-color: #444; color: #eee; }
+  .admin-row { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
+  .admin-row label { flex: 1; font-size: 12px; color: #333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  body.dark .admin-row label { color: #ccc; }
+  .admin-row input[type="number"] { width: 54px; padding: 3px 5px; border-radius: 8px; border: 0.5px solid #ddd; background: #fff; color: #111; font-size: 12px; }
+  body.dark .admin-row input[type="number"] { background: #1a1a1a; border-color: #444; color: #eee; }
+
+  /* Buttons */
+  .save-btn { padding: 5px 12px; border-radius: 8px; border: 0.5px solid #ddd; background: transparent; font-size: 12px; color: #666; cursor: pointer; }
+  .save-btn:hover { background: #f0f0f0; }
+  body.dark .save-btn { border-color: #444; color: #aaa; }
+  body.dark .save-btn:hover { background: #2a2a2a; }
+  .primary-btn { padding: 6px 14px; border-radius: 8px; border: none; background: #111; color: #fff; font-size: 12px; font-weight: 500; cursor: pointer; }
+  body.dark .primary-btn { background: #eee; color: #111; }
+  .primary-btn:hover { opacity: 0.85; }
+
+  /* Player tabs */
+  .player-tabs { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .ptab { padding: 5px 13px; border-radius: 8px; border: 0.5px solid #ddd; background: #f0f0f0; font-size: 13px; color: #666; cursor: pointer; }
+  body.dark .ptab { background: #222; border-color: #444; color: #aaa; }
+  .ptab.active { background: #fff; color: #111; border-color: #999; font-weight: 500; }
+  body.dark .ptab.active { background: #2a2a2a; color: #eee; border-color: #666; }
+
+  /* Rounds */
+  .round-section { margin-bottom: 1.75rem; }
+  .round-label { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 9px; }
+  .matchups-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(285px, 1fr)); gap: 9px; }
+
+  /* Match card */
+  .m-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 11px 13px; }
+  body.dark .m-card { background: #1a1a1a; border-color: #2e2e2e; }
+  .card-top { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+  .badge { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 99px; }
+  .b-final { background: #f0f0f0; color: #666; }
+  body.dark .b-final { background: #2a2a2a; color: #aaa; }
+  .b-upcoming { background: #f0f0f0; color: #999; }
+  body.dark .b-upcoming { background: #2a2a2a; color: #888; }
+  .b-tonight { background: #fef3c7; color: #92400e; }
+  .b-tbd { background: #f0f0f0; color: #999; font-style: italic; }
+  body.dark .b-tbd { background: #2a2a2a; color: #777; }
+  .m-label { font-size: 11px; color: #aaa; }
+
+  /* Team rows */
+  .team-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; border-radius: 8px; margin-bottom: 3px; }
+  .tl { display: flex; align-items: center; gap: 6px; }
+  .seed { font-size: 10px; color: #aaa; min-width: 11px; }
+  .tname { font-size: 13px; color: #111; }
+  body.dark .tname { color: #eee; }
+  .tscore { font-size: 12px; font-weight: 500; min-width: 28px; text-align: right; color: #888; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: transparent; }
+  .vs-hr { border: none; border-top: 0.5px solid #eee; margin: 2px 0; }
+  body.dark .vs-hr { border-color: #2a2a2a; }
+  .picked-bg { background: #f7f7f7; }
+  body.dark .picked-bg { background: #222; }
+
+  /* Pick colors */
+  .pick-correct .tname { color: #16a34a !important; font-weight: 500; }
+  .pick-correct .tscore { color: #16a34a !important; }
+  .pick-correct .dot { background: #16a34a !important; }
+  .pick-wrong .tname { color: #dc2626 !important; font-weight: 500; }
+  .pick-wrong .tscore { color: #dc2626 !important; }
+  .pick-wrong .dot { background: #dc2626 !important; }
+  .pick-pending .dot { background: #9ca3af !important; }
+
+  /* Pick % bars */
+  .pct-bar-wrap { margin-top: 8px; border-top: 0.5px solid #eee; padding-top: 7px; display: flex; flex-direction: column; gap: 3px; }
+  body.dark .pct-bar-wrap { border-color: #2a2a2a; }
+  .pct-row { display: flex; align-items: center; gap: 6px; }
+  .pct-tname { font-size: 11px; color: #888; min-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pct-bar-bg { flex: 1; height: 5px; border-radius: 3px; background: #eee; overflow: hidden; }
+  body.dark .pct-bar-bg { background: #333; }
+  .pct-bar-fill { height: 100%; border-radius: 3px; }
+  .pct-val { font-size: 10px; color: #aaa; min-width: 26px; text-align: right; }
+  .pct-pickers { font-size: 10px; color: #bbb; margin-bottom: 2px; padding-left: 116px; }
+
+  /* Standings */
+  .scoring-key { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 12px 16px; margin-bottom: 1.25rem; }
+  body.dark .scoring-key { background: #1a1a1a; border-color: #2e2e2e; }
+  .scoring-key-title { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+  .scoring-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sc-chip { font-size: 11px; color: #777; background: #f5f5f5; border: 0.5px solid #e0e0e0; border-radius: 8px; padding: 3px 8px; }
+  body.dark .sc-chip { background: #222; border-color: #333; color: #aaa; }
+  .sc-chip b { color: #111; }
+  body.dark .sc-chip b { color: #eee; }
+  .standing-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 14px 16px; margin-bottom: 8px; }
+  body.dark .standing-card { background: #1a1a1a; border-color: #2e2e2e; }
+  .standing-card.gold { border-color: #f59e0b; border-width: 1.5px; }
+  .standing-pts { font-size: 22px; font-weight: 500; color: #111; }
+  body.dark .standing-pts { color: #eee; }
+  .standing-pts-label { font-size: 11px; color: #aaa; }
+  .breakdown-row { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
+  .bd-chip { font-size: 11px; color: #999; background: #f5f5f5; border-radius: 8px; padding: 2px 7px; }
+  body.dark .bd-chip { background: #222; color: #777; }
+  .bd-chip.has { color: #111; font-weight: 500; }
+  body.dark .bd-chip.has { color: #eee; }
+
+  /* Admin login */
+  .admin-login { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 1.25rem; max-width: 320px; }
+  body.dark .admin-login { background: #1a1a1a; border-color: #333; }
+  .admin-login h3 { font-size: 14px; font-weight: 500; margin-bottom: 12px; color: #111; }
+  body.dark .admin-login h3 { color: #eee; }
+  .admin-login input { width: 100%; padding: 7px 10px; border-radius: 8px; border: 0.5px solid #ddd; font-size: 13px; margin-bottom: 10px; background: #fff; color: #111; }
+  body.dark .admin-login input { background: #222; border-color: #444; color: #eee; }
+  .error-msg { font-size: 12px; color: #dc2626; margin-bottom: 8px; }
+
+  /* Loading */
+  .loading { text-align: center; padding: 2rem; color: #999; font-size: 14px; }
+  .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid #ddd; border-top-color: #666; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; vertical-align: middle; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 24px; right: 24px; background: #111; color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
+  body.dark .toast { background: #eee; color: #111; }
+  .toast.show { opacity: 1; }
+
+  /* Dark mode toggle */
+  .dark-toggle { margin-left: auto; font-size: 18px; cursor: pointer; background: none; border: none; padding: 2px 6px; border-radius: 6px; }
+  .dark-toggle:hover { background: #eee; }
+  body.dark .dark-toggle:hover { background: #2a2a2a; }
+
+  @media (max-width: 600px) {
+    .toolbar { gap: 4px; }
+    .tool-btn { padding: 4px 9px; font-size: 11px; }
+    .app-title { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="deadline-bar" id="deadlineBar">
+    <label>📅 Picks deadline:</label>
+    <div id="deadlineDisplay" style="flex:1;"></div>
+  </div>
+
+  <div class="toolbar">
+    <span class="app-title">🏀 2026 NBA Playoffs</span>
+    <div class="t-divider"></div>
+    <button class="tool-btn active" id="btnBracket" onclick="showMain('bracket')">Bracket</button>
+    <button class="tool-btn" id="btnStandings" onclick="showMain('standings')">League standings</button>
+    <div class="t-divider" id="adminDivider" style="display:none;"></div>
+    <button class="tool-btn" id="btnPicks" style="display:none;" onclick="togglePanel('picks')">✏ Edit picks</button>
+    <button class="tool-btn" id="btnAdmin" style="display:none;" onclick="togglePanel('admin')">⚙ Edit results</button>
+    <button class="tool-btn" id="btnAdminLogin" onclick="togglePanel('adminLogin')" style="margin-left:4px;">🔒 Admin</button>
+    <button class="tool-btn" id="btnAdminLogout" onclick="adminLogout()" style="display:none;margin-left:4px;">Log out</button>
+    <button class="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
+  </div>
+
+  <div class="status-bar">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">Loading data...</span>
+  </div>
+
+  <!-- Admin login panel -->
+  <div class="panel" id="adminLoginPanel">
+    <div class="admin-login">
+      <h3>🔒 Admin login</h3>
+      <div class="error-msg" id="loginError" style="display:none;">Incorrect password</div>
+      <input type="password" id="adminPwInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doAdminLogin()">
+      <button class="primary-btn" onclick="doAdminLogin()">Log in</button>
+    </div>
+  </div>
+
+  <!-- Picks panel -->
+  <div class="panel" id="picksPanel">
+    <div class="panel-title">Edit picks for: <span id="pickPlayerName"></span></div>
+    <div class="player-tabs" id="pickPlayerTabs"></div>
+    <div class="panel-grid" id="picksGrid"></div>
+    <div style="display:flex;gap:8px;margin-top:11px;align-items:center;">
+      <button class="primary-btn" id="savePicks" onclick="savePicks()">Save picks</button>
+      <span id="picksStatus" style="font-size:12px;color:#999;"></span>
+    </div>
+  </div>
+
+  <!-- Results panel -->
+  <div class="panel" id="adminPanel">
+    <div class="panel-title">Set scores & winners</div>
+    <div class="panel-grid" id="adminGrid"></div>
+    <div style="display:flex;gap:8px;margin-top:11px;align-items:center;">
+      <button class="primary-btn" id="saveAdmin" onclick="saveAdmin()">Save results</button>
+      <span id="adminStatus" style="font-size:12px;color:#999;"></span>
+    </div>
+  </div>
+
+  <!-- Main views -->
+  <div id="viewBracket">
+    <div class="player-tabs" id="playerTabs"></div>
+    <div id="bracketView"><div class="loading"><span class="loading-spinner"></span>Loading bracket...</div></div>
+  </div>
+  <div id="viewStandings" style="display:none;"></div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbw4aM5sLSMGE8uITSS88vyfrL-WxDuTn2lx7zxcxPh8l-pp-zXVcoGhR1qfMDZNA-Rx/exec';
+const NBA_API = 'https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json';
+const PLAYERS = ['Eric','David','Ben','Nicole','Allison','Jake'];
+const ROUND_PTS = { playin:1, r1:3, r2:5, r3:7, r4:9 };
+const UPSET_BONUS = { r1:1, r2:2, r3:2, r4:3 };
+
+let isAdmin = false;
+let activePlayer = 'Eric';
+let activePickPlayer = 'Eric';
+let activeMain = 'bracket';
+let deadline = { label: '' };
+let lastRefresh = null;
+let autoRefreshTimer = null;
+const finalsRecords = { t1Wins:null, t2Wins:null, t1Diff:null, t2Diff:null };
+
+// ---- Data state ----
+const PLAYIN = [
+  { id:'pi1', round:'playin', label:'East 9 vs 10', t1:'Charlotte Hornets', s1:9, t2:'Miami Heat', s2:10, score1:127, score2:126, winner:'Charlotte Hornets', badge:'b-final', badgeText:'Final (OT)' },
+  { id:'pi2', round:'playin', label:'West 8 vs 7', t1:'Portland Trail Blazers', s1:8, t2:'Phoenix Suns', s2:7, score1:114, score2:110, winner:'Portland Trail Blazers', badge:'b-final', badgeText:'Final' },
+  { id:'pi3', round:'playin', label:'East 7 vs 8', t1:'Philadelphia 76ers', s1:7, t2:'Orlando Magic', s2:8, score1:109, score2:97, winner:'Philadelphia 76ers', badge:'b-final', badgeText:'Final' },
+  { id:'pi4', round:'playin', label:'West 10 vs 9', t1:'Golden State Warriors', s1:10, t2:'LA Clippers', s2:9, score1:126, score2:121, winner:'Golden State Warriors', badge:'b-final', badgeText:'Final' },
+  { id:'pi5', round:'playin', label:'East — #8 seed', t1:'Orlando Magic', s1:null, t2:'Charlotte Hornets', s2:null, score1:null, score2:null, winner:null, badge:'b-tonight', badgeText:'Tonight 7:30 ET' },
+  { id:'pi6', round:'playin', label:'West — #8 seed', t1:'Phoenix Suns', s1:null, t2:'Golden State Warriors', s2:null, score1:null, score2:null, winner:null, badge:'b-tonight', badgeText:'Tonight 10 ET' },
+];
+
+let matchups = [
+  { id:'e1', round:'r1', conf:'East', label:'East #1 vs #8', t1:'Detroit Pistons', s1:1, t2:'TBD (E8)', s2:8, score1:null, score2:null, winner:null },
+  { id:'e2', round:'r1', conf:'East', label:'East #2 vs #7', t1:'Boston Celtics', s1:2, t2:'Philadelphia 76ers', s2:7, score1:null, score2:null, winner:null },
+  { id:'e3', round:'r1', conf:'East', label:'East #3 vs #6', t1:'New York Knicks', s1:3, t2:'Atlanta Hawks', s2:6, score1:null, score2:null, winner:null },
+  { id:'e4', round:'r1', conf:'East', label:'East #4 vs #5', t1:'Cleveland Cavaliers', s1:4, t2:'Toronto Raptors', s2:5, score1:null, score2:null, winner:null },
+  { id:'w1', round:'r1', conf:'West', label:'West #1 vs #8', t1:'Oklahoma City Thunder', s1:1, t2:'TBD (W8)', s2:8, score1:null, score2:null, winner:null },
+  { id:'w2', round:'r1', conf:'West', label:'West #2 vs #7', t1:'San Antonio Spurs', s1:2, t2:'Portland Trail Blazers', s2:7, score1:null, score2:null, winner:null },
+  { id:'w3', round:'r1', conf:'West', label:'West #3 vs #6', t1:'Denver Nuggets', s1:3, t2:'Minnesota Timberwolves', s2:6, score1:null, score2:null, winner:null },
+  { id:'w4', round:'r1', conf:'West', label:'West #4 vs #5', t1:'Los Angeles Lakers', s1:4, t2:'Houston Rockets', s2:5, score1:null, score2:null, winner:null },
+  { id:'e5', round:'r2', conf:'East', label:'East Semis #1', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
+  { id:'e6', round:'r2', conf:'East', label:'East Semis #2', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
+  { id:'w5', round:'r2', conf:'West', label:'West Semis #1', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
+  { id:'w6', round:'r2', conf:'West', label:'West Semis #2', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
+  { id:'e7', round:'r3', conf:'East', label:'East Finals', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
+  { id:'w7', round:'r3', conf:'West', label:'West Finals', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
+  { id:'f1', round:'r4', conf:'Finals', label:'NBA Finals', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
+];
+
+let picks = {};
+PLAYERS.forEach(p => { picks[p] = {}; matchups.forEach(m => picks[p][m.id] = ''); });
+
+let playinPicks = {
+  Jake:    { pi1:'Charlotte Hornets', pi2:'Portland Trail Blazers', pi3:'Orlando Magic',       pi4:'LA Clippers',           pi5:'', pi6:'' },
+  Nicole:  { pi1:'Charlotte Hornets', pi2:'Phoenix Suns',           pi3:'Philadelphia 76ers',  pi4:'Golden State Warriors', pi5:'', pi6:'' },
+  David:   { pi1:'Charlotte Hornets', pi2:'Portland Trail Blazers', pi3:'Philadelphia 76ers',  pi4:'LA Clippers',           pi5:'', pi6:'' },
+  Eric:    { pi1:'Charlotte Hornets', pi2:'Orlando Magic',          pi3:'LA Clippers',         pi4:'Portland Trail Blazers',pi5:'', pi6:'' },
+  Ben:     { pi1:'Charlotte Hornets', pi2:'Phoenix Suns',           pi3:'LA Clippers',         pi4:'Orlando Magic',         pi5:'', pi6:'' },
+  Allison: { pi1:'Charlotte Hornets', pi2:'Phoenix Suns',           pi3:'Philadelphia 76ers',  pi4:'LA Clippers',           pi5:'', pi6:'' },
+};
+
+// ---- Dark mode ----
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+}
+if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+
+// ---- Toast ----
+function showToast(msg, duration=2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ---- Admin ----
+function doAdminLogin() {
+  const pw = document.getElementById('adminPwInput').value;
+  if (pw === 'NBAPlaya123') {
+    isAdmin = true;
+    document.getElementById('adminLoginPanel').classList.remove('open');
+    document.getElementById('btnAdminLogin').style.display = 'none';
+    document.getElementById('btnAdminLogout').style.display = '';
+    document.getElementById('btnPicks').style.display = '';
+    document.getElementById('btnAdmin').style.display = '';
+    document.getElementById('adminDivider').style.display = '';
+    document.getElementById('btnPicks').classList.toggle('active', false);
+    document.getElementById('btnAdmin').classList.toggle('active', false);
+    document.getElementById('loginError').style.display = 'none';
+    showToast('Welcome, Admin! 🔓');
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+function adminLogout() {
+  isAdmin = false;
+  document.getElementById('btnAdminLogin').style.display = '';
+  document.getElementById('btnAdminLogout').style.display = 'none';
+  document.getElementById('btnPicks').style.display = 'none';
+  document.getElementById('btnAdmin').style.display = 'none';
+  document.getElementById('adminDivider').style.display = 'none';
+  document.getElementById('picksPanel').classList.remove('open');
+  document.getElementById('adminPanel').classList.remove('open');
+  showToast('Logged out');
+}
+
+// ---- API calls ----
+async function apiGet() {
+  try {
+    const res = await fetch(API_URL + '?action=getData');
+    return await res.json();
+  } catch(e) { return null; }
+}
+
+async function apiPost(body) {
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ ...body, password: 'NBAPlaya123' })
+    });
+    return await res.json();
+  } catch(e) { return null; }
+}
+
+// ---- Load data from Sheets ----
+async function loadData() {
+  setStatus('loading');
+  const data = await apiGet();
+  if (!data) { setStatus('error'); return; }
+
+  // Load picks
+  if (data.picks && Array.isArray(data.picks)) {
+    data.picks.forEach(row => {
+      const p = row.player, mid = row.matchup;
+      if (p && mid && picks[p] !== undefined) picks[p][mid] = row.pick || '';
+    });
+  }
+  // Load playin picks from sheet if present
+  if (data.playin_picks && Array.isArray(data.playin_picks)) {
+    data.playin_picks.forEach(row => {
+      const p = row.player, pid = row.matchup;
+      if (p && pid && playinPicks[p] !== undefined) playinPicks[p][pid] = row.pick || '';
+    });
+  }
+  // Load results
+  if (data.results && Array.isArray(data.results)) {
+    data.results.forEach(row => {
+      const m = matchups.find(x => x.id === row.id);
+      if (!m) return;
+      m.score1 = row.score1 !== '' && row.score1 != null ? parseInt(row.score1) : null;
+      m.score2 = row.score2 !== '' && row.score2 != null ? parseInt(row.score2) : null;
+      m.winner = row.winner || null;
+      if (row.t2 && !row.t2.startsWith('TBD')) m.t2 = row.t2;
+      if (row.t1 && !row.t1.startsWith('TBD')) m.t1 = row.t1;
+    });
+  }
+  // Load deadline
+  if (data.deadline && Array.isArray(data.deadline) && data.deadline[0]) {
+    deadline.label = data.deadline[0].label || '';
+  }
+
+  lastRefresh = new Date();
+  setStatus('ok');
+  renderDeadline();
+  renderBracket();
+  renderTabs();
+  if (activeMain === 'standings') renderStandings();
+}
+
+// ---- Save picks ----
+async function savePicks() {
+  document.getElementById('picksStatus').textContent = 'Saving...';
+  const rows = [];
+  PLAYERS.forEach(p => {
+    matchups.forEach(m => {
+      rows.push({ player: p, matchup: m.id, pick: picks[p][m.id] || '' });
+    });
+    Object.keys(playinPicks[p] || {}).forEach(pid => {
+      rows.push({ player: p, matchup: pid, pick: (playinPicks[p][pid] || '') });
+    });
+  });
+  // Read current UI values for active player
+  matchups.forEach(m => {
+    const el = document.getElementById(`pick_${m.id}`);
+    if (el) picks[activePickPlayer][m.id] = el.value;
+  });
+  const saveRows = [];
+  PLAYERS.forEach(p => {
+    matchups.forEach(m => saveRows.push({ player: p, matchup: m.id, pick: picks[p][m.id] || '' }));
+  });
+  const playinRows = [];
+  PLAYERS.forEach(p => {
+    Object.keys(playinPicks[p] || {}).forEach(pid => {
+      playinRows.push({ player: p, matchup: pid, pick: playinPicks[p][pid] || '' });
+    });
+  });
+  const [r1, r2] = await Promise.all([
+    apiPost({ action: 'savePicks', data: saveRows }),
+    apiPost({ action: 'savePlayinPicks', data: playinRows })
+  ]);
+  if (r1 && r1.success) {
+    document.getElementById('picksStatus').textContent = '✓ Saved';
+    showToast('Picks saved ✓');
+    renderBracket();
+    if (activeMain === 'standings') renderStandings();
+    setTimeout(() => document.getElementById('picksStatus').textContent = '', 3000);
+  } else {
+    document.getElementById('picksStatus').textContent = '✗ Error saving';
+  }
+}
+
+// ---- Save results ----
+async function saveAdmin() {
+  document.getElementById('adminStatus').textContent = 'Saving...';
+  matchups.forEach(m => {
+    const s1 = document.getElementById(`sc1_${m.id}`);
+    const s2 = document.getElementById(`sc2_${m.id}`);
+    const w = document.getElementById(`win_${m.id}`);
+    if (s1) m.score1 = s1.value !== '' ? parseInt(s1.value) : null;
+    if (s2) m.score2 = s2.value !== '' ? parseInt(s2.value) : null;
+    if (w) m.winner = w.value || null;
+    // Update team names if changed
+    const t2el = document.getElementById(`t2name_${m.id}`);
+    if (t2el && t2el.value) m.t2 = t2el.value;
+    const t1el = document.getElementById(`t1name_${m.id}`);
+    if (t1el && t1el.value) m.t1 = t1el.value;
+  });
+  // Save deadline too
+  const dlEl = document.getElementById('dlInput');
+  if (dlEl) deadline.label = dlEl.value;
+  const rows = matchups.map(m => ({
+    id: m.id, t1: m.t1, t2: m.t2,
+    score1: m.score1 ?? '', score2: m.score2 ?? '', winner: m.winner || ''
+  }));
+  const [r1, r2] = await Promise.all([
+    apiPost({ action: 'saveResults', data: rows }),
+    apiPost({ action: 'saveDeadline', data: [{ label: deadline.label }] })
+  ]);
+  if (r1 && r1.success) {
+    document.getElementById('adminStatus').textContent = '✓ Saved';
+    showToast('Results saved ✓');
+    renderDeadline();
+    renderBracket();
+    if (activeMain === 'standings') renderStandings();
+    setTimeout(() => document.getElementById('adminStatus').textContent = '', 3000);
+  } else {
+    document.getElementById('adminStatus').textContent = '✗ Error saving';
+  }
+}
+
+// ---- Status indicator ----
+function setStatus(state) {
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  if (state === 'loading') { dot.className='status-dot'; txt.textContent='Loading...'; }
+  else if (state === 'ok') { dot.className='status-dot live'; txt.textContent=`Updated ${new Date().toLocaleTimeString()}`; }
+  else if (state === 'error') { dot.className='status-dot'; txt.textContent='Could not connect — showing cached data'; }
+}
+
+// ---- Main view toggle ----
+function showMain(view) {
+  activeMain = view;
+  document.getElementById('viewBracket').style.display = view==='bracket' ? '' : 'none';
+  document.getElementById('viewStandings').style.display = view==='standings' ? '' : 'none';
+  document.getElementById('btnBracket').classList.toggle('active', view==='bracket');
+  document.getElementById('btnStandings').classList.toggle('active', view==='standings');
+  if (view === 'standings') renderStandings();
+}
+
+// ---- Panel toggle ----
+function togglePanel(which) {
+  const panels = { adminLogin:'adminLoginPanel', picks:'picksPanel', admin:'adminPanel' };
+  const btns = { picks:'btnPicks', admin:'btnAdmin', adminLogin:'btnAdminLogin' };
+  Object.keys(panels).forEach(k => {
+    const isTarget = k === which;
+    const panel = document.getElementById(panels[k]);
+    const wasOpen = panel.classList.contains('open');
+    panel.classList.toggle('open', isTarget && !wasOpen);
+    if (btns[k]) document.getElementById(btns[k])?.classList.toggle('active', isTarget && !wasOpen);
+  });
+  if (which === 'picks' && document.getElementById('picksPanel').classList.contains('open')) renderPicksPanel();
+  if (which === 'admin' && document.getElementById('adminPanel').classList.contains('open')) renderAdmin();
+}
+
+// ---- Deadline ----
+function renderDeadline() {
+  document.getElementById('deadlineDisplay').innerHTML = deadline.label
+    ? `<span class="deadline-display">${deadline.label}</span>`
+    : `<span class="deadline-sub">No deadline set</span>`;
+}
+
+// ---- Upset detection ----
+function isUpset(game, winner) {
+  if (!winner || !game.winner) return false;
+  if (game.round === 'playin') return false;
+  if (game.round === 'r4') {
+    const {t1Wins,t2Wins,t1Diff,t2Diff} = finalsRecords;
+    if (t1Wins === null || t2Wins === null) return false;
+    const fav = t1Wins !== t2Wins ? (t1Wins > t2Wins ? game.t1 : game.t2) : (t1Diff !== null && t2Diff !== null ? (t1Diff >= t2Diff ? game.t1 : game.t2) : null);
+    return fav ? winner !== fav : false;
+  }
+  const ws = winner === game.t1 ? game.s1 : game.s2;
+  const ls = winner === game.t1 ? game.s2 : game.s1;
+  return ws !== null && ls !== null && ws > ls;
+}
+
+// ---- Scoring ----
+function calcScores() {
+  return PLAYERS.map(p => {
+    let total = 0;
+    const bd = { playin:0, r1:0, r2:0, r3:0, r4:0, upset:0 };
+    PLAYIN.forEach(pg => {
+      const pk = (playinPicks[p]||{})[pg.id] || '';
+      if (pk && pg.winner && pk === pg.winner) { total++; bd.playin++; }
+    });
+    matchups.forEach(m => {
+      if (!m.winner) return;
+      const pk = picks[p][m.id] || '';
+      if (!pk || pk !== m.winner) return;
+      const base = ROUND_PTS[m.round] || 0;
+      const bonus = isUpset(m, m.winner) ? (UPSET_BONUS[m.round] || 0) : 0;
+      total += base + bonus;
+      bd[m.round] = (bd[m.round] || 0) + base;
+      bd.upset += bonus;
+    });
+    return { player:p, total, bd };
+  }).sort((a,b) => b.total - a.total);
+}
+
+// ---- Pick % ----
+function getPickPct(mid) {
+  const m = matchups.find(x=>x.id===mid);
+  if (!m || m.t1.startsWith('TBD') || m.t2.startsWith('TBD')) return null;
+  let c1=0,c2=0,p1=[],p2=[];
+  PLAYERS.forEach(p => { if(picks[p][mid]===m.t1){c1++;p1.push(p);}else if(picks[p][mid]===m.t2){c2++;p2.push(p);} });
+  const tot=c1+c2; if(!tot) return null;
+  return {t1:m.t1,t2:m.t2,pct1:Math.round(c1/tot*100),pct2:Math.round(c2/tot*100),pickers1:p1,pickers2:p2};
+}
+function getPlayinPct(pid) {
+  const pg=PLAYIN.find(x=>x.id===pid); if(!pg) return null;
+  let c1=0,c2=0,p1=[],p2=[];
+  PLAYERS.forEach(p => { const v=(playinPicks[p]||{})[pid]; if(v===pg.t1){c1++;p1.push(p);}else if(v===pg.t2){c2++;p2.push(p);} });
+  const tot=c1+c2; if(!tot) return null;
+  return {t1:pg.t1,t2:pg.t2,pct1:Math.round(c1/tot*100),pct2:Math.round(c2/tot*100),pickers1:p1,pickers2:p2};
+}
+function pctHTML(d) {
+  if(!d) return '';
+  return `<div class="pct-bar-wrap">
+    <div class="pct-row"><span class="pct-tname">${d.t1.split(' ').slice(-1)[0]}</span><div class="pct-bar-bg"><div class="pct-bar-fill" style="width:${d.pct1}%;background:#3b82f6"></div></div><span class="pct-val">${d.pct1}%</span></div>
+    <div class="pct-pickers">${d.pickers1.join(', ')||'—'}</div>
+    <div class="pct-row"><span class="pct-tname">${d.t2.split(' ').slice(-1)[0]}</span><div class="pct-bar-bg"><div class="pct-bar-fill" style="width:${d.pct2}%;background:#6366f1"></div></div><span class="pct-val">${d.pct2}%</span></div>
+    <div class="pct-pickers">${d.pickers2.join(', ')||'—'}</div>
+  </div>`;
+}
+
+// ---- Team row ----
+function teamRowHTML(team, seed, score, isWinner, pick, status) {
+  let rc='team-row', dot='background:transparent', tn='', sc='color:#888';
+  const cls = [];
+  if (pick === team) {
+    rc += ' picked-bg';
+    if (status==='correct') { dot='background:#16a34a'; cls.push('pick-correct'); sc=isWinner?'color:#16a34a;font-weight:600':'color:#16a34a'; }
+    else if (status==='wrong') { dot='background:#dc2626'; cls.push('pick-wrong'); sc='color:#dc2626'; }
+    else { dot='background:#9ca3af'; cls.push('pick-pending'); }
+  }
+  if (cls.length) rc += ' ' + cls.join(' ');
+  const sv = score !== null ? score : '';
+  const winSc = isWinner && score !== null ? 'color:#16a34a;font-weight:600' : sc;
+  return `<div class="${rc}"><div class="tl"><span class="dot" style="${dot}"></span>${seed?`<span class="seed">${seed}</span>`:''}<span class="tname">${team}</span></div><span class="tscore" style="${winSc}">${sv}</span></div>`;
+}
+
+// ---- Status helpers ----
+function getStatus(mid, pick) {
+  const m=matchups.find(x=>x.id===mid);
+  if(!pick)return'none'; if(!m||!m.winner)return'pending';
+  return m.winner===pick?'correct':'wrong';
+}
+function getPiStatus(pid, pick) {
+  const pg=PLAYIN.find(x=>x.id===pid);
+  if(!pick||!pg)return'none'; if(!pg.winner)return'pending';
+  return pg.winner===pick?'correct':'wrong';
+}
+
+// ---- Bracket render ----
+function renderBracket() {
+  const pp=picks[activePlayer], ppi=playinPicks[activePlayer]||{};
+  let html='';
+  html+=`<div class="round-section"><div class="round-label">Play-In Tournament</div><div class="matchups-grid">`;
+  PLAYIN.forEach(pg => {
+    const pick=ppi[pg.id]||'', st=getPiStatus(pg.id,pick), pct=getPlayinPct(pg.id);
+    html+=`<div class="m-card"><div class="card-top"><span class="badge ${pg.badge}">${pg.badgeText}</span><span class="m-label">${pg.label}</span></div>
+      ${teamRowHTML(pg.t1,pg.s1,pg.score1,pg.winner===pg.t1,pick,st)}
+      <hr class="vs-hr">${teamRowHTML(pg.t2,pg.s2,pg.score2,pg.winner===pg.t2,pick,st)}
+      ${pctHTML(pct)}</div>`;
+  });
+  html+=`</div></div>`;
+  [['r1','First Round'],['r2','Conference Semifinals'],['r3','Conference Finals'],['r4','NBA Finals']].forEach(([rid,rlabel]) => {
+    const rms=matchups.filter(m=>m.round===rid);
+    html+=`<div class="round-section"><div class="round-label">${rlabel}</div><div class="matchups-grid">`;
+    rms.forEach(m => {
+      const isTBD=m.t1==='TBD'&&m.t2==='TBD', hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD');
+      const pick=pp[m.id]||'', st=getStatus(m.id,pick), pct=getPickPct(m.id);
+      const upset=m.winner&&isUpset(m,m.winner);
+      const badge=isTBD?`<span class="badge b-tbd">Awaiting</span>`:hasTBD?`<span class="badge b-upcoming">Upcoming</span>`:m.winner?`<span class="badge b-final">Final${upset?' 🔥':''}</span>`:`<span class="badge b-upcoming">Upcoming</span>`;
+      if(isTBD){
+        html+=`<div class="m-card"><div class="card-top">${badge}<span class="m-label">${m.label}</span></div><div style="font-size:12px;color:#aaa;padding:4px 2px">Teams TBD after previous round</div></div>`;
+      } else {
+        html+=`<div class="m-card"><div class="card-top">${badge}<span class="m-label">${m.label}</span></div>
+          ${teamRowHTML(m.t1,m.s1,m.score1,m.winner===m.t1,pick,st)}
+          <hr class="vs-hr">${teamRowHTML(m.t2,m.s2,m.score2,m.winner===m.t2,pick,st)}
+          ${pctHTML(pct)}</div>`;
+      }
+    });
+    html+=`</div></div>`;
+  });
+  document.getElementById('bracketView').innerHTML=html;
+}
+
+// ---- Player tabs ----
+function renderTabs() {
+  document.getElementById('playerTabs').innerHTML=PLAYERS.map(p=>
+    `<button class="ptab ${p===activePlayer?'active':''}" onclick="setPlayer('${p}')">${p}</button>`).join('');
+}
+function setPlayer(p){activePlayer=p;renderTabs();renderBracket();}
+
+// ---- Picks panel ----
+function renderPicksPanel() {
+  document.getElementById('pickPlayerName').textContent=activePickPlayer;
+  document.getElementById('pickPlayerTabs').innerHTML=PLAYERS.map(p=>
+    `<button class="ptab ${p===activePickPlayer?'active':''}" onclick="setPickPlayer('${p}')">${p}</button>`).join('');
+  const pp=picks[activePickPlayer];
+  let html='';
+  matchups.forEach(m => {
+    const hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD'), isTBD=m.t1==='TBD'&&m.t2==='TBD';
+    if(isTBD)return;
+    const opts=hasTBD?`<option value="">TBD after play-in</option>`
+      :`<option value="">— no pick —</option><option value="${m.t1}" ${pp[m.id]===m.t1?'selected':''}>${m.t1}</option><option value="${m.t2}" ${pp[m.id]===m.t2?'selected':''}>${m.t2}</option>`;
+    html+=`<div class="panel-card"><div class="panel-card-label">${m.label}</div><select class="pick-sel" id="pick_${m.id}" ${hasTBD?'disabled':''}>${opts}</select></div>`;
+  });
+  document.getElementById('picksGrid').innerHTML=html;
+}
+function setPickPlayer(p){
+  // Save current before switching
+  matchups.forEach(m=>{const el=document.getElementById(`pick_${m.id}`);if(el)picks[activePickPlayer][m.id]=el.value;});
+  activePickPlayer=p; renderPicksPanel();
+}
+
+// ---- Admin panel ----
+function renderAdmin() {
+  let html=`<div class="panel-card" style="grid-column:1/-1;">
+    <div class="panel-card-label">Picks deadline label</div>
+    <input type="text" id="dlInput" value="${deadline.label}" placeholder="e.g. Round 1 — Sat Apr 19, 12pm ET" style="width:100%;padding:5px 8px;border-radius:8px;border:0.5px solid #ddd;font-size:13px;background:#fff;color:#111;">
+  </div>`;
+  matchups.forEach(m => {
+    if(m.t1==='TBD'&&m.t2==='TBD')return;
+    const hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD');
+    const t1label = hasTBD && m.t1.startsWith('TBD') ? `<input type="text" id="t1name_${m.id}" placeholder="Enter team name" value="${m.t1.startsWith('TBD')?'':m.t1}" style="width:100%;padding:3px 5px;border-radius:6px;border:0.5px solid #ddd;font-size:11px;margin-bottom:4px;">` : `<span style="font-size:12px;color:#333;">${m.t1}</span>`;
+    const t2label = hasTBD && m.t2.startsWith('TBD') ? `<input type="text" id="t2name_${m.id}" placeholder="Enter team name" value="${m.t2.startsWith('TBD')?'':m.t2}" style="width:100%;padding:3px 5px;border-radius:6px;border:0.5px solid #ddd;font-size:11px;margin-bottom:4px;">` : `<span style="font-size:12px;color:#333;">${m.t2}</span>`;
+    html+=`<div class="panel-card"><div class="panel-card-label">${m.label}</div>
+      <div class="admin-row"><label>${m.t1.startsWith('TBD')?t1label:m.t1}</label>${!m.t1.startsWith('TBD')?`<input type="number" id="sc1_${m.id}" value="${m.score1!==null?m.score1:''}" placeholder="—" min="0">`:''}
+      </div>
+      <div class="admin-row"><label>${m.t2.startsWith('TBD')?t2label:m.t2}</label>${!m.t2.startsWith('TBD')?`<input type="number" id="sc2_${m.id}" value="${m.score2!==null?m.score2:''}" placeholder="—" min="0">`:''}
+      </div>
+      ${!hasTBD?`<div class="admin-row"><label style="color:#777">Winner</label>
+        <select class="win-sel" id="win_${m.id}">
+          <option value="">—</option>
+          <option value="${m.t1}" ${m.winner===m.t1?'selected':''}>${m.t1}</option>
+          <option value="${m.t2}" ${m.winner===m.t2?'selected':''}>${m.t2}</option>
+        </select></div>`:''}
+    </div>`;
+  });
+  document.getElementById('adminGrid').innerHTML=html;
+}
+
+// ---- Standings ----
+function renderStandings() {
+  const scores=calcScores();
+  const medals=['🥇','🥈','🥉'];
+  let html=`<div class="scoring-key"><div class="scoring-key-title">Scoring system</div><div class="scoring-grid">
+    <span class="sc-chip"><b>Play-in:</b> 1 pt</span>
+    <span class="sc-chip"><b>Round 1:</b> 3 pts</span>
+    <span class="sc-chip"><b>Semis:</b> 5 pts</span>
+    <span class="sc-chip"><b>Conf Finals:</b> 7 pts</span>
+    <span class="sc-chip"><b>Finals:</b> 9 pts</span>
+    <span class="sc-chip"><b>Upset R1:</b> +1</span>
+    <span class="sc-chip"><b>Upset R2/R3:</b> +2</span>
+    <span class="sc-chip"><b>Upset Finals:</b> +3</span>
+  </div></div>`;
+  let prevTotal=null, rank=0;
+  scores.forEach((s,i)=>{
+    if(s.total!==prevTotal){rank=i+1;prevTotal=s.total;}
+    const icon=medals[rank-1]||`#${rank}`;
+    const chips=[
+      `<span class="bd-chip ${s.bd.playin?'has':''}">Play-in: ${s.bd.playin}pt</span>`,
+      `<span class="bd-chip ${s.bd.r1?'has':''}">R1: ${s.bd.r1}pt</span>`,
+      `<span class="bd-chip ${s.bd.r2?'has':''}">Semis: ${s.bd.r2}pt</span>`,
+      `<span class="bd-chip ${s.bd.r3?'has':''}">CF: ${s.bd.r3}pt</span>`,
+      `<span class="bd-chip ${s.bd.r4?'has':''}">Finals: ${s.bd.r4}pt</span>`,
+      s.bd.upset?`<span class="bd-chip has" style="color:#d97706">Upset bonus: +${s.bd.upset}</span>`:'',
+    ].filter(Boolean).join('');
+    html+=`<div class="standing-card ${rank===1?'gold':''}">
+      <div style="display:flex;align-items:flex-start;gap:14px;">
+        <div style="font-size:22px;min-width:32px;text-align:center;line-height:1.3;">${icon}</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;">
+            <span style="font-size:15px;font-weight:500;">${s.player}</span>
+            <div style="text-align:right;"><div class="standing-pts">${s.total}</div><div class="standing-pts-label">pts</div></div>
+          </div>
+          <div class="breakdown-row">${chips}</div>
+        </div>
+      </div>
+    </div>`;
+  });
+  // Finals tiebreaker
+  html+=`<div style="margin-top:1.5rem;background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;padding:14px 16px;">
+    <div style="font-size:11px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Finals upset tiebreaker</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      ${['t1Wins','t2Wins','t1Diff','t2Diff'].map((k,i)=>`<div><label style="font-size:11px;color:#888;display:block;margin-bottom:4px;">${['Team 1 wins','Team 2 wins','Team 1 pt diff','Team 2 pt diff'][i]}</label><input type="number" id="fr_${k}" value="${finalsRecords[k]??''}" placeholder="—" style="width:80px;padding:4px 6px;border-radius:8px;border:0.5px solid #ddd;background:#fff;color:#111;font-size:12px;"></div>`).join('')}
+    </div>
+    <button class="save-btn" style="margin-top:10px;" onclick="saveFinalsRecords()">Save</button>
+  </div>`;
+  document.getElementById('viewStandings').innerHTML=html;
+}
+function saveFinalsRecords(){
+  ['t1Wins','t2Wins','t1Diff','t2Diff'].forEach(k=>{
+    const v=document.getElementById(`fr_${k}`).value;
+    finalsRecords[k]=v!==''?parseFloat(v):null;
+  });
+  renderStandings();
+}
+
+// ---- Auto-refresh every 2 min ----
+function startAutoRefresh() {
+  if (autoRefreshTimer) clearInterval(autoRefreshTimer);
+  autoRefreshTimer = setInterval(async () => {
+    await loadData();
+  }, 120000);
+}
+
+// ---- Init ----
+renderTabs();
+renderDeadline();
+loadData().then(() => startAutoRefresh());
+</script>
+</body>
+</html>

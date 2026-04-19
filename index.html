@@ -267,19 +267,19 @@ const PLAYIN = [
   { id:'pi2', round:'playin', label:'West 8 vs 7', t1:'Portland Trail Blazers', s1:8, t2:'Phoenix Suns', s2:7, score1:114, score2:110, winner:'Portland Trail Blazers', badge:'b-final', badgeText:'Final' },
   { id:'pi3', round:'playin', label:'East 7 vs 8', t1:'Philadelphia 76ers', s1:7, t2:'Orlando Magic', s2:8, score1:109, score2:97, winner:'Philadelphia 76ers', badge:'b-final', badgeText:'Final' },
   { id:'pi4', round:'playin', label:'West 10 vs 9', t1:'Golden State Warriors', s1:10, t2:'LA Clippers', s2:9, score1:126, score2:121, winner:'Golden State Warriors', badge:'b-final', badgeText:'Final' },
-  { id:'pi5', round:'playin', label:'East — #8 seed', t1:'Orlando Magic', s1:null, t2:'Charlotte Hornets', s2:null, score1:null, score2:null, winner:null, badge:'b-tonight', badgeText:'Fri Apr 18, 7:30 ET' },
-  { id:'pi6', round:'playin', label:'West — #8 seed', t1:'Phoenix Suns', s1:null, t2:'Golden State Warriors', s2:null, score1:null, score2:null, winner:null, badge:'b-tonight', badgeText:'Fri Apr 18, 10 ET' },
+  { id:'pi5', round:'playin', label:'East — #8 seed', t1:'Orlando Magic', s1:null, t2:'Charlotte Hornets', s2:null, score1:121, score2:90, winner:'Orlando Magic', badge:'b-final', badgeText:'Final' },
+  { id:'pi6', round:'playin', label:'West — #8 seed', t1:'Phoenix Suns', s1:null, t2:'Golden State Warriors', s2:null, score1:111, score2:96, winner:'Phoenix Suns', badge:'b-final', badgeText:'Final' },
 ];
 
 let matchups = [
-  { id:'e1', round:'r1', conf:'East', label:'East #1 vs #8', t1:'Detroit Pistons', s1:1, t2:'TBD (E8)', s2:8, score1:null, score2:null, winner:null },
+  { id:'e1', round:'r1', conf:'East', label:'East #1 vs #8', t1:'Detroit Pistons', s1:1, t2:'Orlando Magic', s2:8, score1:null, score2:null, winner:null },
   { id:'e2', round:'r1', conf:'East', label:'East #2 vs #7', t1:'Boston Celtics', s1:2, t2:'Philadelphia 76ers', s2:7, score1:null, score2:null, winner:null },
-  { id:'e3', round:'r1', conf:'East', label:'East #3 vs #6', t1:'New York Knicks', s1:3, t2:'Atlanta Hawks', s2:6, score1:null, score2:null, winner:null },
-  { id:'e4', round:'r1', conf:'East', label:'East #4 vs #5', t1:'Cleveland Cavaliers', s1:4, t2:'Toronto Raptors', s2:5, score1:null, score2:null, winner:null },
-  { id:'w1', round:'r1', conf:'West', label:'West #1 vs #8', t1:'Oklahoma City Thunder', s1:1, t2:'TBD (W8)', s2:8, score1:null, score2:null, winner:null },
+  { id:'e3', round:'r1', conf:'East', label:'East #3 vs #6', t1:'New York Knicks', s1:3, t2:'Atlanta Hawks', s2:6, score1:null, score2:null, winner:null, seriesScore:'Knicks lead 1-0', latestGame:'G1: 113-102' },
+  { id:'e4', round:'r1', conf:'East', label:'East #4 vs #5', t1:'Cleveland Cavaliers', s1:4, t2:'Toronto Raptors', s2:5, score1:null, score2:null, winner:null, seriesScore:'Cavaliers lead 1-0', latestGame:'G1: 126-113' },
+  { id:'w1', round:'r1', conf:'West', label:'West #1 vs #8', t1:'Oklahoma City Thunder', s1:1, t2:'Phoenix Suns', s2:8, score1:null, score2:null, winner:null },
   { id:'w2', round:'r1', conf:'West', label:'West #2 vs #7', t1:'San Antonio Spurs', s1:2, t2:'Portland Trail Blazers', s2:7, score1:null, score2:null, winner:null },
-  { id:'w3', round:'r1', conf:'West', label:'West #3 vs #6', t1:'Denver Nuggets', s1:3, t2:'Minnesota Timberwolves', s2:6, score1:null, score2:null, winner:null },
-  { id:'w4', round:'r1', conf:'West', label:'West #4 vs #5', t1:'Los Angeles Lakers', s1:4, t2:'Houston Rockets', s2:5, score1:null, score2:null, winner:null },
+  { id:'w3', round:'r1', conf:'West', label:'West #3 vs #6', t1:'Denver Nuggets', s1:3, t2:'Minnesota Timberwolves', s2:6, score1:null, score2:null, winner:null, seriesScore:'Nuggets lead 1-0', latestGame:'G1: 116-105' },
+  { id:'w4', round:'r1', conf:'West', label:'West #4 vs #5', t1:'Los Angeles Lakers', s1:4, t2:'Houston Rockets', s2:5, score1:null, score2:null, winner:null, seriesScore:'Lakers lead 1-0', latestGame:'G1: 107-98' },
   { id:'e5', round:'r2', conf:'East', label:'East Semis #1', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
   { id:'e6', round:'r2', conf:'East', label:'East Semis #2', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
   { id:'w5', round:'r2', conf:'West', label:'West Semis #1', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
@@ -393,6 +393,8 @@ async function loadData() {
       m.score1 = row.score1 !== '' && row.score1 != null ? parseInt(row.score1) : null;
       m.score2 = row.score2 !== '' && row.score2 != null ? parseInt(row.score2) : null;
       m.winner = row.winner || null;
+      m.seriesScore = row.seriesScore || m.seriesScore || null;
+      m.latestGame = row.latestGame || m.latestGame || null;
       if (row.t2 && !row.t2.startsWith('TBD')) m.t2 = row.t2;
       if (row.t1 && !row.t1.startsWith('TBD')) m.t1 = row.t1;
     });
@@ -461,11 +463,11 @@ async function savePicks() {
 async function saveAdmin() {
   document.getElementById('adminStatus').textContent = 'Saving...';
   matchups.forEach(m => {
-    const s1 = document.getElementById(`sc1_${m.id}`);
-    const s2 = document.getElementById(`sc2_${m.id}`);
+    const ss = document.getElementById(`ss_${m.id}`);
+    const lg = document.getElementById(`lg_${m.id}`);
     const w = document.getElementById(`win_${m.id}`);
-    if (s1) m.score1 = s1.value !== '' ? parseInt(s1.value) : null;
-    if (s2) m.score2 = s2.value !== '' ? parseInt(s2.value) : null;
+    if (ss) m.seriesScore = ss.value || null;
+    if (lg) m.latestGame = lg.value || null;
     if (w) m.winner = w.value || null;
     // Update team names if changed
     const t2el = document.getElementById(`t2name_${m.id}`);
@@ -478,7 +480,8 @@ async function saveAdmin() {
   if (dlEl) deadline.label = dlEl.value;
   const rows = matchups.map(m => ({
     id: m.id, t1: m.t1, t2: m.t2,
-    score1: m.score1 ?? '', score2: m.score2 ?? '', winner: m.winner || ''
+    score1: m.score1 ?? '', score2: m.score2 ?? '', winner: m.winner || '',
+    seriesScore: m.seriesScore || '', latestGame: m.latestGame || ''
   }));
   const [r1, r2] = await Promise.all([
     apiPost({ action: 'saveResults', data: rows }),
@@ -649,11 +652,13 @@ function renderBracket() {
       const isTBD=m.t1==='TBD'&&m.t2==='TBD', hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD');
       const pick=pp[m.id]||'', st=getStatus(m.id,pick), pct=getPickPct(m.id);
       const upset=m.winner&&isUpset(m,m.winner);
+      const seriesInfo = m.seriesScore ? `<div style="font-size:10px;color:#888;margin-bottom:5px;">${m.seriesScore}${m.latestGame?' · '+m.latestGame:''}</div>` : (m.latestGame ? `<div style="font-size:10px;color:#888;margin-bottom:5px;">${m.latestGame}</div>` : '');
       const badge=isTBD?`<span class="badge b-tbd">Awaiting</span>`:hasTBD?`<span class="badge b-upcoming">Upcoming</span>`:m.winner?`<span class="badge b-final">Final${upset?' 🔥':''}</span>`:`<span class="badge b-upcoming">Upcoming</span>`;
       if(isTBD){
         html+=`<div class="m-card"><div class="card-top">${badge}<span class="m-label">${m.label}</span></div><div style="font-size:12px;color:#aaa;padding:4px 2px">Teams TBD after previous round</div></div>`;
       } else {
         html+=`<div class="m-card"><div class="card-top">${badge}<span class="m-label">${m.label}</span></div>
+          ${seriesInfo}
           ${teamRowHTML(m.t1,m.s1,m.score1,m.winner===m.t1,pick,st)}
           <hr class="vs-hr">${teamRowHTML(m.t2,m.s2,m.score2,m.winner===m.t2,pick,st)}
           ${pctHTML(pct)}</div>`;
@@ -708,7 +713,46 @@ function setPickPlayer(p){
   activePickPlayer=p; renderPicksPanel();
 }
 
-// ---- Admin panel ----
+// ---- NBA playoff series auto-fetch ----
+// Maps our matchup IDs to NBA.com series data using team abbreviations
+const SERIES_MAP = {
+  e1: {t1:'DET',t2:'ORL'}, e2: {t1:'BOS',t2:'PHI'}, e3: {t1:'NYK',t2:'ATL'}, e4: {t1:'CLE',t2:'TOR'},
+  w1: {t1:'OKC',t2:'PHX'}, w2: {t1:'SAS',t2:'POR'}, w3: {t1:'DEN',t2:'MIN'}, w4: {t1:'LAL',t2:'HOU'},
+};
+
+async function fetchNBASeriesScores() {
+  try {
+    const res = await fetch('https://cdn.nba.com/static/json/liveData/series/series_leaders.json', { cache: 'no-store' });
+    const data = await res.json();
+    const series = data?.resultSets?.[0]?.rowSet || [];
+    let updated = false;
+    series.forEach(row => {
+      // NBA series row: [leagueId, seriesId, homeTeamId, awayTeamId, homeWins, awayWins, gameLabel, ...]
+      // Use team abbreviation matching
+      const homeAbbr = row[4], awayAbbr = row[5], homeWins = row[6], awayWins = row[7];
+      Object.entries(SERIES_MAP).forEach(([mid, teams]) => {
+        const m = matchups.find(x => x.id === mid);
+        if (!m || m.winner) return;
+        const match = (homeAbbr === teams.t1 && awayAbbr === teams.t2) || (homeAbbr === teams.t2 && awayAbbr === teams.t1);
+        if (!match) return;
+        const t1wins = homeAbbr === teams.t1 ? homeWins : awayWins;
+        const t2wins = homeAbbr === teams.t1 ? awayWins : homeWins;
+        const newSeries = `${t1wins}-${t2wins}`;
+        const label = t1wins > t2wins ? `${m.t1} lead ${t1wins}-${t2wins}` : t2wins > t1wins ? `${m.t2} lead ${t2wins}-${t1wins}` : `Series tied ${t1wins}-${t2wins}`;
+        if (t1wins === 4) { m.winner = m.t1; m.score1 = 4; m.score2 = t2wins; }
+        else if (t2wins === 4) { m.winner = m.t2; m.score1 = t1wins; m.score2 = 4; }
+        else { m.score1 = t1wins; m.score2 = t2wins; }
+        m.seriesScore = label;
+        updated = true;
+      });
+    });
+    if (updated) { renderBracket(); if (activeMain==='standings') renderStandings(); }
+  } catch(e) {
+    // Silently fail — data stays as-is
+  }
+}
+
+// ---- Admin panel with series score fields ----
 function renderAdmin() {
   let html=`<div class="panel-card" style="grid-column:1/-1;">
     <div class="panel-card-label">Picks deadline label</div>
@@ -717,16 +761,14 @@ function renderAdmin() {
   matchups.forEach(m => {
     if(m.t1==='TBD'&&m.t2==='TBD')return;
     const hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD');
-    const t1label = hasTBD && m.t1.startsWith('TBD') ? `<input type="text" id="t1name_${m.id}" placeholder="Enter team name" value="${m.t1.startsWith('TBD')?'':m.t1}" style="width:100%;padding:3px 5px;border-radius:6px;border:0.5px solid #ddd;font-size:11px;margin-bottom:4px;">` : `<span style="font-size:12px;color:#333;">${m.t1}</span>`;
-    const t2label = hasTBD && m.t2.startsWith('TBD') ? `<input type="text" id="t2name_${m.id}" placeholder="Enter team name" value="${m.t2.startsWith('TBD')?'':m.t2}" style="width:100%;padding:3px 5px;border-radius:6px;border:0.5px solid #ddd;font-size:11px;margin-bottom:4px;">` : `<span style="font-size:12px;color:#333;">${m.t2}</span>`;
     html+=`<div class="panel-card"><div class="panel-card-label">${m.label}</div>
-      <div class="admin-row"><label>${m.t1.startsWith('TBD')?t1label:m.t1}</label>${!m.t1.startsWith('TBD')?`<input type="number" id="sc1_${m.id}" value="${m.score1!==null?m.score1:''}" placeholder="—" min="0">`:''}
-      </div>
-      <div class="admin-row"><label>${m.t2.startsWith('TBD')?t2label:m.t2}</label>${!m.t2.startsWith('TBD')?`<input type="number" id="sc2_${m.id}" value="${m.score2!==null?m.score2:''}" placeholder="—" min="0">`:''}
-      </div>
-      ${!hasTBD?`<div class="admin-row"><label style="color:#777">Winner</label>
+      <div class="admin-row"><label style="color:#777;font-size:11px;">Series score (e.g. "Lakers lead 2-1")</label></div>
+      <div class="admin-row"><input type="text" id="ss_${m.id}" value="${m.seriesScore||''}" placeholder="e.g. Knicks lead 1-0" style="width:100%;padding:3px 6px;border-radius:6px;border:0.5px solid #ddd;font-size:12px;background:#fff;color:#111;margin-bottom:4px;"></div>
+      <div class="admin-row"><label style="color:#777;font-size:11px;">Latest game (e.g. "G2: 112-98")</label></div>
+      <div class="admin-row"><input type="text" id="lg_${m.id}" value="${m.latestGame||''}" placeholder="e.g. G1: 113-102" style="width:100%;padding:3px 6px;border-radius:6px;border:0.5px solid #ddd;font-size:12px;background:#fff;color:#111;margin-bottom:4px;"></div>
+      ${!hasTBD?`<div class="admin-row"><label style="color:#777">Series winner</label>
         <select class="win-sel" id="win_${m.id}">
-          <option value="">—</option>
+          <option value="">— not yet —</option>
           <option value="${m.t1}" ${m.winner===m.t1?'selected':''}>${m.t1}</option>
           <option value="${m.t2}" ${m.winner===m.t2?'selected':''}>${m.t2}</option>
         </select></div>`:''}
@@ -797,13 +839,17 @@ function startAutoRefresh() {
   if (autoRefreshTimer) clearInterval(autoRefreshTimer);
   autoRefreshTimer = setInterval(async () => {
     await loadData();
+    await fetchNBASeriesScores();
   }, 120000);
 }
 
 // ---- Init ----
 renderTabs();
 renderDeadline();
-loadData().then(() => startAutoRefresh());
+loadData().then(() => {
+  fetchNBASeriesScores();
+  startAutoRefresh();
+});
 </script>
 </body>
 </html>

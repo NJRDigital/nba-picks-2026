@@ -8,18 +8,13 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #111; min-height: 100vh; }
   body.dark { background: #0f0f0f; color: #eee; }
-
   .page { max-width: 1100px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
-
-  /* Deadline */
   .deadline-bar { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 12px 16px; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   body.dark .deadline-bar { background: #1a1a1a; border-color: #333; }
   .deadline-bar label { font-size: 12px; font-weight: 500; color: #666; white-space: nowrap; }
   .deadline-display { font-size: 13px; color: #111; font-weight: 500; flex: 1; }
   body.dark .deadline-display { color: #eee; }
   .deadline-sub { font-size: 11px; color: #999; flex: 1; }
-
-  /* Toolbar */
   .toolbar { display: flex; align-items: center; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
   .app-title { font-size: 19px; font-weight: 500; color: #111; margin-right: 4px; }
   body.dark .app-title { color: #eee; }
@@ -31,14 +26,10 @@
   body.dark .tool-btn:hover { background: #2a2a2a; }
   .tool-btn.active { background: #fff; border-color: #999; color: #111; font-weight: 500; }
   body.dark .tool-btn.active { background: #2a2a2a; border-color: #666; color: #eee; }
-
-  /* Status bar */
   .status-bar { font-size: 11px; color: #999; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
   .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
   .status-dot.live { background: #22c55e; animation: pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-  /* Panel */
   .panel { background: #f0f0f0; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 16px; margin-bottom: 1.25rem; display: none; }
   body.dark .panel { background: #1a1a1a; border-color: #333; }
   .panel.open { display: block; }
@@ -55,8 +46,6 @@
   body.dark .admin-row label { color: #ccc; }
   .admin-row input[type="number"] { width: 54px; padding: 3px 5px; border-radius: 8px; border: 0.5px solid #ddd; background: #fff; color: #111; font-size: 12px; }
   body.dark .admin-row input[type="number"] { background: #1a1a1a; border-color: #444; color: #eee; }
-
-  /* Buttons */
   .save-btn { padding: 5px 12px; border-radius: 8px; border: 0.5px solid #ddd; background: transparent; font-size: 12px; color: #666; cursor: pointer; }
   .save-btn:hover { background: #f0f0f0; }
   body.dark .save-btn { border-color: #444; color: #aaa; }
@@ -64,20 +53,14 @@
   .primary-btn { padding: 6px 14px; border-radius: 8px; border: none; background: #111; color: #fff; font-size: 12px; font-weight: 500; cursor: pointer; }
   body.dark .primary-btn { background: #eee; color: #111; }
   .primary-btn:hover { opacity: 0.85; }
-
-  /* Player tabs */
   .player-tabs { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 1rem; }
   .ptab { padding: 5px 13px; border-radius: 8px; border: 0.5px solid #ddd; background: #f0f0f0; font-size: 13px; color: #666; cursor: pointer; }
   body.dark .ptab { background: #222; border-color: #444; color: #aaa; }
   .ptab.active { background: #fff; color: #111; border-color: #999; font-weight: 500; }
   body.dark .ptab.active { background: #2a2a2a; color: #eee; border-color: #666; }
-
-  /* Rounds */
   .round-section { margin-bottom: 1.75rem; }
   .round-label { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 9px; }
   .matchups-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(285px, 1fr)); gap: 9px; }
-
-  /* Match card */
   .m-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 11px 13px; }
   body.dark .m-card { background: #1a1a1a; border-color: #2e2e2e; }
   .card-top { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
@@ -86,12 +69,12 @@
   body.dark .b-final { background: #2a2a2a; color: #aaa; }
   .b-upcoming { background: #f0f0f0; color: #999; }
   body.dark .b-upcoming { background: #2a2a2a; color: #888; }
-  .b-tonight { background: #fef3c7; color: #92400e; }
   .b-tbd { background: #f0f0f0; color: #999; font-style: italic; }
   body.dark .b-tbd { background: #2a2a2a; color: #777; }
+  .b-active { background: #e8f5e9; color: #2e7d32; }
   .m-label { font-size: 11px; color: #aaa; }
-
-  /* Team rows */
+  .odds-tag { font-size: 10px; color: #888; background: #f5f5f5; border: 0.5px solid #e0e0e0; border-radius: 99px; padding: 1px 6px; margin-left: auto; white-space: nowrap; }
+  body.dark .odds-tag { background: #222; border-color: #333; color: #aaa; }
   .team-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; border-radius: 8px; margin-bottom: 3px; }
   .tl { display: flex; align-items: center; gap: 6px; }
   .seed { font-size: 10px; color: #aaa; min-width: 11px; }
@@ -103,8 +86,6 @@
   body.dark .vs-hr { border-color: #2a2a2a; }
   .picked-bg { background: #f7f7f7; }
   body.dark .picked-bg { background: #222; }
-
-  /* Pick colors */
   .pick-correct .tname { color: #16a34a !important; font-weight: 500; }
   .pick-correct .tscore { color: #16a34a !important; }
   .pick-correct .dot { background: #16a34a !important; }
@@ -112,8 +93,7 @@
   .pick-wrong .tscore { color: #dc2626 !important; }
   .pick-wrong .dot { background: #dc2626 !important; }
   .pick-pending .dot { background: #9ca3af !important; }
-
-  /* Pick % bars */
+  .series-info { font-size: 10px; color: #888; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .pct-bar-wrap { margin-top: 8px; border-top: 0.5px solid #eee; padding-top: 7px; display: flex; flex-direction: column; gap: 3px; }
   body.dark .pct-bar-wrap { border-color: #2a2a2a; }
   .pct-row { display: flex; align-items: center; gap: 6px; }
@@ -123,8 +103,6 @@
   .pct-bar-fill { height: 100%; border-radius: 3px; }
   .pct-val { font-size: 10px; color: #aaa; min-width: 26px; text-align: right; }
   .pct-pickers { font-size: 10px; color: #bbb; margin-bottom: 2px; padding-left: 116px; }
-
-  /* Standings */
   .scoring-key { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 12px 16px; margin-bottom: 1.25rem; }
   body.dark .scoring-key { background: #1a1a1a; border-color: #2e2e2e; }
   .scoring-key-title { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
@@ -144,8 +122,6 @@
   body.dark .bd-chip { background: #222; color: #777; }
   .bd-chip.has { color: #111; font-weight: 500; }
   body.dark .bd-chip.has { color: #eee; }
-
-  /* Admin login */
   .admin-login { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 1.25rem; max-width: 320px; }
   body.dark .admin-login { background: #1a1a1a; border-color: #333; }
   .admin-login h3 { font-size: 14px; font-weight: 500; margin-bottom: 12px; color: #111; }
@@ -153,38 +129,26 @@
   .admin-login input { width: 100%; padding: 7px 10px; border-radius: 8px; border: 0.5px solid #ddd; font-size: 13px; margin-bottom: 10px; background: #fff; color: #111; }
   body.dark .admin-login input { background: #222; border-color: #444; color: #eee; }
   .error-msg { font-size: 12px; color: #dc2626; margin-bottom: 8px; }
-
-  /* Loading */
   .loading { text-align: center; padding: 2rem; color: #999; font-size: 14px; }
   .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid #ddd; border-top-color: #666; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; vertical-align: middle; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Toast */
   .toast { position: fixed; bottom: 24px; right: 24px; background: #111; color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
   body.dark .toast { background: #eee; color: #111; }
   .toast.show { opacity: 1; }
-
-  /* Dark mode toggle */
   .dark-toggle { margin-left: auto; font-size: 18px; cursor: pointer; background: none; border: none; padding: 2px 6px; border-radius: 6px; }
   .dark-toggle:hover { background: #eee; }
   body.dark .dark-toggle:hover { background: #2a2a2a; }
-
-  @media (max-width: 600px) {
-    .toolbar { gap: 4px; }
-    .tool-btn { padding: 4px 9px; font-size: 11px; }
-    .app-title { font-size: 16px; }
-  }
+  .section-header { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.07em; margin: 12px 0 8px; grid-column: 1/-1; border-bottom: 0.5px solid #e0e0e0; padding-bottom: 6px; }
+  body.dark .section-header { border-color: #333; }
+  @media (max-width: 600px) { .toolbar { gap: 4px; } .tool-btn { padding: 4px 9px; font-size: 11px; } .app-title { font-size: 16px; } }
 </style>
 </head>
 <body>
-
 <div class="page">
-
   <div class="deadline-bar" id="deadlineBar">
     <label>📅 Picks deadline:</label>
     <div id="deadlineDisplay" style="flex:1;"></div>
   </div>
-
   <div class="toolbar">
     <span class="app-title">🏀 2026 NBA Playoffs</span>
     <div class="t-divider"></div>
@@ -197,13 +161,10 @@
     <button class="tool-btn" id="btnAdminLogout" onclick="adminLogout()" style="display:none;margin-left:4px;">Log out</button>
     <button class="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
   </div>
-
   <div class="status-bar">
     <span class="status-dot" id="statusDot"></span>
     <span id="statusText">Loading data...</span>
   </div>
-
-  <!-- Admin login panel -->
   <div class="panel" id="adminLoginPanel">
     <div class="admin-login">
       <h3>🔒 Admin login</h3>
@@ -212,42 +173,33 @@
       <button class="primary-btn" onclick="doAdminLogin()">Log in</button>
     </div>
   </div>
-
-  <!-- Picks panel -->
   <div class="panel" id="picksPanel">
     <div class="panel-title">Edit picks for: <span id="pickPlayerName"></span></div>
     <div class="player-tabs" id="pickPlayerTabs"></div>
     <div class="panel-grid" id="picksGrid"></div>
     <div style="display:flex;gap:8px;margin-top:11px;align-items:center;">
-      <button class="primary-btn" id="savePicks" onclick="savePicks()">Save picks</button>
+      <button class="primary-btn" onclick="savePicks()">Save picks</button>
       <span id="picksStatus" style="font-size:12px;color:#999;"></span>
     </div>
   </div>
-
-  <!-- Results panel -->
   <div class="panel" id="adminPanel">
     <div class="panel-title">Set scores & winners</div>
     <div class="panel-grid" id="adminGrid"></div>
     <div style="display:flex;gap:8px;margin-top:11px;align-items:center;">
-      <button class="primary-btn" id="saveAdmin" onclick="saveAdmin()">Save results</button>
+      <button class="primary-btn" onclick="saveAdmin()">Save results</button>
       <span id="adminStatus" style="font-size:12px;color:#999;"></span>
     </div>
   </div>
-
-  <!-- Main views -->
   <div id="viewBracket">
     <div class="player-tabs" id="playerTabs"></div>
     <div id="bracketView"><div class="loading"><span class="loading-spinner"></span>Loading bracket...</div></div>
   </div>
   <div id="viewStandings" style="display:none;"></div>
-
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 const API_URL = 'https://script.google.com/macros/s/AKfycbw4aM5sLSMGE8uITSS88vyfrL-WxDuTn2lx7zxcxPh8l-pp-zXVcoGhR1qfMDZNA-Rx/exec';
-const NBA_API = 'https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json';
 const PLAYERS = ['Eric','David','Ben','Nicole','Allison','Jake'];
 const ROUND_PTS = { playin:1, r1:3, r2:5, r3:7, r4:9 };
 const UPSET_BONUS = { r1:1, r2:2, r3:2, r4:3 };
@@ -256,12 +208,11 @@ let isAdmin = false;
 let activePlayer = 'Eric';
 let activePickPlayer = 'Eric';
 let activeMain = 'bracket';
-let deadline = { label: '' };
-let lastRefresh = null;
+let deadline = { label: 'Tonight (Mon May 4) at 8pm ET — Conference Semifinals picks due!' };
 let autoRefreshTimer = null;
 const finalsRecords = { t1Wins:null, t2Wins:null, t1Diff:null, t2Diff:null };
 
-// ---- Data state ----
+// ---- PLAY-IN DATA ----
 const PLAYIN = [
   { id:'pi1', round:'playin', label:'East 9 vs 10', t1:'Charlotte Hornets', s1:9, t2:'Miami Heat', s2:10, score1:127, score2:126, winner:'Charlotte Hornets', badge:'b-final', badgeText:'Final (OT)' },
   { id:'pi2', round:'playin', label:'West 8 vs 7', t1:'Portland Trail Blazers', s1:8, t2:'Phoenix Suns', s2:7, score1:114, score2:110, winner:'Portland Trail Blazers', badge:'b-final', badgeText:'Final' },
@@ -271,22 +222,29 @@ const PLAYIN = [
   { id:'pi6', round:'playin', label:'West — #8 seed', t1:'Phoenix Suns', s1:null, t2:'Golden State Warriors', s2:null, score1:111, score2:96, winner:'Phoenix Suns', badge:'b-final', badgeText:'Final' },
 ];
 
+// ---- MATCHUP DATA ----
 let matchups = [
-  { id:'e1', round:'r1', conf:'East', label:'East #1 vs #8', t1:'Detroit Pistons', s1:1, t2:'Orlando Magic', s2:8, score1:null, score2:null, winner:null },
-  { id:'e2', round:'r1', conf:'East', label:'East #2 vs #7', t1:'Boston Celtics', s1:2, t2:'Philadelphia 76ers', s2:7, score1:null, score2:null, winner:null },
-  { id:'e3', round:'r1', conf:'East', label:'East #3 vs #6', t1:'New York Knicks', s1:3, t2:'Atlanta Hawks', s2:6, score1:null, score2:null, winner:null, seriesScore:'Knicks lead 1-0', latestGame:'G1: 113-102' },
-  { id:'e4', round:'r1', conf:'East', label:'East #4 vs #5', t1:'Cleveland Cavaliers', s1:4, t2:'Toronto Raptors', s2:5, score1:null, score2:null, winner:null, seriesScore:'Cavaliers lead 1-0', latestGame:'G1: 126-113' },
-  { id:'w1', round:'r1', conf:'West', label:'West #1 vs #8', t1:'Oklahoma City Thunder', s1:1, t2:'Phoenix Suns', s2:8, score1:null, score2:null, winner:null },
-  { id:'w2', round:'r1', conf:'West', label:'West #2 vs #7', t1:'San Antonio Spurs', s1:2, t2:'Portland Trail Blazers', s2:7, score1:null, score2:null, winner:null },
-  { id:'w3', round:'r1', conf:'West', label:'West #3 vs #6', t1:'Denver Nuggets', s1:3, t2:'Minnesota Timberwolves', s2:6, score1:null, score2:null, winner:null, seriesScore:'Nuggets lead 1-0', latestGame:'G1: 116-105' },
-  { id:'w4', round:'r1', conf:'West', label:'West #4 vs #5', t1:'Los Angeles Lakers', s1:4, t2:'Houston Rockets', s2:5, score1:null, score2:null, winner:null, seriesScore:'Lakers lead 1-0', latestGame:'G1: 107-98' },
-  { id:'e5', round:'r2', conf:'East', label:'East Semis #1', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
-  { id:'e6', round:'r2', conf:'East', label:'East Semis #2', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
-  { id:'w5', round:'r2', conf:'West', label:'West Semis #1', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
-  { id:'w6', round:'r2', conf:'West', label:'West Semis #2', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
-  { id:'e7', round:'r3', conf:'East', label:'East Finals', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
-  { id:'w7', round:'r3', conf:'West', label:'West Finals', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
-  { id:'f1', round:'r4', conf:'Finals', label:'NBA Finals', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null },
+  // FIRST ROUND — EAST (all complete)
+  { id:'e1', round:'r1', conf:'East', label:'East #1 vs #8', t1:'Detroit Pistons', s1:1, t2:'Orlando Magic', s2:8, score1:4, score2:3, winner:'Detroit Pistons', seriesScore:'Pistons win 4-3', latestGame:'G7: 116-94' },
+  { id:'e2', round:'r1', conf:'East', label:'East #2 vs #7', t1:'Boston Celtics', s1:2, t2:'Philadelphia 76ers', s2:7, score1:3, score2:4, winner:'Philadelphia 76ers', seriesScore:'76ers win 4-3 🔥', latestGame:'G7 upset' },
+  { id:'e3', round:'r1', conf:'East', label:'East #3 vs #6', t1:'New York Knicks', s1:3, t2:'Atlanta Hawks', s2:6, score1:4, score2:2, winner:'New York Knicks', seriesScore:'Knicks win 4-2', latestGame:'G6: 113-102' },
+  { id:'e4', round:'r1', conf:'East', label:'East #4 vs #5', t1:'Cleveland Cavaliers', s1:4, t2:'Toronto Raptors', s2:5, score1:4, score2:3, winner:'Cleveland Cavaliers', seriesScore:'Cavaliers win 4-3', latestGame:'G7' },
+  // FIRST ROUND — WEST (all complete)
+  { id:'w1', round:'r1', conf:'West', label:'West #1 vs #8', t1:'Oklahoma City Thunder', s1:1, t2:'Phoenix Suns', s2:8, score1:4, score2:0, winner:'Oklahoma City Thunder', seriesScore:'Thunder win 4-0', latestGame:'Sweep' },
+  { id:'w2', round:'r1', conf:'West', label:'West #2 vs #7', t1:'San Antonio Spurs', s1:2, t2:'Portland Trail Blazers', s2:7, score1:4, score2:1, winner:'San Antonio Spurs', seriesScore:'Spurs win 4-1', latestGame:'G5' },
+  { id:'w3', round:'r1', conf:'West', label:'West #3 vs #6', t1:'Denver Nuggets', s1:3, t2:'Minnesota Timberwolves', s2:6, score1:2, score2:4, winner:'Minnesota Timberwolves', seriesScore:'Wolves win 4-2 🔥', latestGame:'G6: 110-98' },
+  { id:'w4', round:'r1', conf:'West', label:'West #4 vs #5', t1:'Los Angeles Lakers', s1:4, t2:'Houston Rockets', s2:5, score1:4, score2:2, winner:'Los Angeles Lakers', seriesScore:'Lakers win 4-2', latestGame:'G6' },
+  // SEMIFINALS — EAST
+  { id:'e5', round:'r2', conf:'East', label:'East Semis — #1 vs #4', t1:'Detroit Pistons', s1:1, t2:'Cleveland Cavaliers', s2:4, score1:null, score2:null, winner:null, seriesScore:null, latestGame:null, odds:'Pick\'em', oddsT1:'-110', oddsT2:'-110' },
+  { id:'e6', round:'r2', conf:'East', label:'East Semis — #3 vs #7', t1:'New York Knicks', s1:3, t2:'Philadelphia 76ers', s2:7, score1:null, score2:null, winner:null, seriesScore:null, latestGame:null, odds:'Knicks fav', oddsT1:'-275', oddsT2:'+225' },
+  // SEMIFINALS — WEST
+  { id:'w5', round:'r2', conf:'West', label:'West Semis — #1 vs #4', t1:'Oklahoma City Thunder', s1:1, t2:'Los Angeles Lakers', s2:4, score1:null, score2:null, winner:null, seriesScore:null, latestGame:null, odds:'Thunder heavy fav', oddsT1:'-2000', oddsT2:'+950' },
+  { id:'w6', round:'r2', conf:'West', label:'West Semis — #2 vs #6', t1:'San Antonio Spurs', s1:2, t2:'Minnesota Timberwolves', s2:6, score1:null, score2:null, winner:null, seriesScore:null, latestGame:null, odds:'Spurs heavy fav', oddsT1:'-2000', oddsT2:'+950' },
+  // CONFERENCE FINALS
+  { id:'e7', round:'r3', conf:'East', label:'Eastern Conference Finals', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null, seriesScore:null, latestGame:null },
+  { id:'w7', round:'r3', conf:'West', label:'Western Conference Finals', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null, seriesScore:null, latestGame:null },
+  // NBA FINALS
+  { id:'f1', round:'r4', conf:'Finals', label:'NBA Finals', t1:'TBD', s1:null, t2:'TBD', s2:null, score1:null, score2:null, winner:null, seriesScore:null, latestGame:null },
 ];
 
 let picks = {};
@@ -302,17 +260,12 @@ let playinPicks = {
 };
 
 // ---- Dark mode ----
-function toggleDark() {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('darkMode', document.body.classList.contains('dark'));
-}
+function toggleDark() { document.body.classList.toggle('dark'); localStorage.setItem('darkMode', document.body.classList.contains('dark')); }
 if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
 
 // ---- Toast ----
 function showToast(msg, duration=2500) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), duration);
 }
 
@@ -327,210 +280,120 @@ function doAdminLogin() {
     document.getElementById('btnPicks').style.display = '';
     document.getElementById('btnAdmin').style.display = '';
     document.getElementById('adminDivider').style.display = '';
-    document.getElementById('btnPicks').classList.toggle('active', false);
-    document.getElementById('btnAdmin').classList.toggle('active', false);
     document.getElementById('loginError').style.display = 'none';
     showToast('Welcome, Admin! 🔓');
-  } else {
-    document.getElementById('loginError').style.display = 'block';
-  }
+  } else { document.getElementById('loginError').style.display = 'block'; }
 }
 function adminLogout() {
   isAdmin = false;
-  document.getElementById('btnAdminLogin').style.display = '';
-  document.getElementById('btnAdminLogout').style.display = 'none';
-  document.getElementById('btnPicks').style.display = 'none';
-  document.getElementById('btnAdmin').style.display = 'none';
-  document.getElementById('adminDivider').style.display = 'none';
-  document.getElementById('picksPanel').classList.remove('open');
-  document.getElementById('adminPanel').classList.remove('open');
+  ['btnAdminLogin'].forEach(id => document.getElementById(id).style.display = '');
+  ['btnAdminLogout','btnPicks','btnAdmin','adminDivider'].forEach(id => document.getElementById(id).style.display = 'none');
+  ['picksPanel','adminPanel'].forEach(id => document.getElementById(id).classList.remove('open'));
   showToast('Logged out');
 }
 
-// ---- API calls ----
+// ---- API ----
 async function apiGet() {
-  try {
-    const res = await fetch(API_URL + '?action=getData');
-    return await res.json();
-  } catch(e) { return null; }
+  try { const res = await fetch(API_URL + '?action=getData'); return await res.json(); } catch(e) { return null; }
 }
-
 async function apiPost(body) {
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ ...body, password: 'NBAPlaya123' })
-    });
-    return await res.json();
-  } catch(e) { return null; }
+  try { const res = await fetch(API_URL, { method:'POST', body: JSON.stringify({...body, password:'NBAPlaya123'}) }); return await res.json(); } catch(e) { return null; }
 }
 
-// ---- Load data from Sheets ----
+// ---- Load data ----
 async function loadData() {
   setStatus('loading');
   const data = await apiGet();
   if (!data) { setStatus('error'); return; }
-
-  // Load picks
   if (data.picks && Array.isArray(data.picks)) {
-    data.picks.forEach(row => {
-      const p = row.player, mid = row.matchup;
-      if (p && mid && picks[p] !== undefined) picks[p][mid] = row.pick || '';
-    });
+    data.picks.forEach(row => { const p=row.player, mid=row.matchup; if(p&&mid&&picks[p]!==undefined) picks[p][mid]=row.pick||''; });
   }
-  // Load playin picks from sheet if present
   if (data.playin_picks && Array.isArray(data.playin_picks)) {
-    data.playin_picks.forEach(row => {
-      const p = row.player, pid = row.matchup;
-      if (p && pid && playinPicks[p] !== undefined) playinPicks[p][pid] = row.pick || '';
-    });
+    data.playin_picks.forEach(row => { const p=row.player, pid=row.matchup; if(p&&pid&&playinPicks[p]!==undefined) playinPicks[p][pid]=row.pick||''; });
   }
-  // Load results
   if (data.results && Array.isArray(data.results)) {
     data.results.forEach(row => {
-      const m = matchups.find(x => x.id === row.id);
-      if (!m) return;
-      m.score1 = row.score1 !== '' && row.score1 != null ? parseInt(row.score1) : null;
-      m.score2 = row.score2 !== '' && row.score2 != null ? parseInt(row.score2) : null;
-      m.winner = row.winner || null;
-      m.seriesScore = row.seriesScore || m.seriesScore || null;
-      m.latestGame = row.latestGame || m.latestGame || null;
-      if (row.t2 && !row.t2.startsWith('TBD')) m.t2 = row.t2;
-      if (row.t1 && !row.t1.startsWith('TBD')) m.t1 = row.t1;
+      const m = matchups.find(x=>x.id===row.id); if(!m) return;
+      m.score1 = row.score1!==''&&row.score1!=null ? parseInt(row.score1) : null;
+      m.score2 = row.score2!==''&&row.score2!=null ? parseInt(row.score2) : null;
+      m.winner = row.winner||null;
+      m.seriesScore = row.seriesScore||m.seriesScore||null;
+      m.latestGame = row.latestGame||m.latestGame||null;
+      if(row.t2&&!row.t2.startsWith('TBD')) m.t2=row.t2;
+      if(row.t1&&!row.t1.startsWith('TBD')) m.t1=row.t1;
     });
   }
-  // Load deadline
-  if (data.deadline && Array.isArray(data.deadline) && data.deadline[0]) {
-    deadline.label = data.deadline[0].label || '';
-  }
-
-  lastRefresh = new Date();
-  setStatus('ok');
-  renderDeadline();
-  renderBracket();
-  renderTabs();
-  if (activeMain === 'standings') renderStandings();
+  if (data.deadline&&Array.isArray(data.deadline)&&data.deadline[0]) deadline.label=data.deadline[0].label||deadline.label;
+  setStatus('ok'); renderDeadline(); renderBracket(); renderTabs();
+  if (activeMain==='standings') renderStandings();
 }
 
 // ---- Save picks ----
 async function savePicks() {
-  document.getElementById('picksStatus').textContent = 'Saving...';
-  const rows = [];
-  PLAYERS.forEach(p => {
-    matchups.forEach(m => {
-      rows.push({ player: p, matchup: m.id, pick: picks[p][m.id] || '' });
-    });
-    Object.keys(playinPicks[p] || {}).forEach(pid => {
-      rows.push({ player: p, matchup: pid, pick: (playinPicks[p][pid] || '') });
-    });
+  document.getElementById('picksStatus').textContent='Saving...';
+  matchups.forEach(m=>{const el=document.getElementById(`pick_${m.id}`);if(el)picks[activePickPlayer][m.id]=el.value;});
+  PLAYIN.forEach(pg=>{const el=document.getElementById(`ppi_${pg.id}`);if(el)playinPicks[activePickPlayer][pg.id]=el.value;});
+  const saveRows=[], playinRows=[];
+  PLAYERS.forEach(p=>{
+    matchups.forEach(m=>saveRows.push({player:p,matchup:m.id,pick:picks[p][m.id]||''}));
+    Object.keys(playinPicks[p]||{}).forEach(pid=>playinRows.push({player:p,matchup:pid,pick:playinPicks[p][pid]||''}));
   });
-  // Read current UI values for active player bracket picks
-  matchups.forEach(m => {
-    const el = document.getElementById(`pick_${m.id}`);
-    if (el) picks[activePickPlayer][m.id] = el.value;
-  });
-  // Read current UI values for active player playin picks
-  PLAYIN.forEach(pg => {
-    const el = document.getElementById(`ppi_${pg.id}`);
-    if (el) playinPicks[activePickPlayer][pg.id] = el.value;
-  });
-  const saveRows = [];
-  PLAYERS.forEach(p => {
-    matchups.forEach(m => saveRows.push({ player: p, matchup: m.id, pick: picks[p][m.id] || '' }));
-  });
-  const playinRows = [];
-  PLAYERS.forEach(p => {
-    Object.keys(playinPicks[p] || {}).forEach(pid => {
-      playinRows.push({ player: p, matchup: pid, pick: playinPicks[p][pid] || '' });
-    });
-  });
-  const [r1, r2] = await Promise.all([
-    apiPost({ action: 'savePicks', data: saveRows }),
-    apiPost({ action: 'savePlayinPicks', data: playinRows })
-  ]);
-  if (r1 && r1.success) {
-    document.getElementById('picksStatus').textContent = '✓ Saved';
-    showToast('Picks saved ✓');
-    renderBracket();
-    if (activeMain === 'standings') renderStandings();
-    setTimeout(() => document.getElementById('picksStatus').textContent = '', 3000);
-  } else {
-    document.getElementById('picksStatus').textContent = '✗ Error saving';
-  }
+  const [r1,r2] = await Promise.all([apiPost({action:'savePicks',data:saveRows}),apiPost({action:'savePlayinPicks',data:playinRows})]);
+  if(r1&&r1.success){
+    document.getElementById('picksStatus').textContent='✓ Saved'; showToast('Picks saved ✓');
+    renderBracket(); if(activeMain==='standings')renderStandings();
+    setTimeout(()=>document.getElementById('picksStatus').textContent='',3000);
+  } else { document.getElementById('picksStatus').textContent='✗ Error saving'; }
 }
 
 // ---- Save results ----
 async function saveAdmin() {
-  document.getElementById('adminStatus').textContent = 'Saving...';
-  matchups.forEach(m => {
-    const ss = document.getElementById(`ss_${m.id}`);
-    const lg = document.getElementById(`lg_${m.id}`);
-    const w = document.getElementById(`win_${m.id}`);
-    if (ss) m.seriesScore = ss.value || null;
-    if (lg) m.latestGame = lg.value || null;
-    if (w) m.winner = w.value || null;
-    // Update team names if changed
-    const t2el = document.getElementById(`t2name_${m.id}`);
-    if (t2el && t2el.value) m.t2 = t2el.value;
-    const t1el = document.getElementById(`t1name_${m.id}`);
-    if (t1el && t1el.value) m.t1 = t1el.value;
+  document.getElementById('adminStatus').textContent='Saving...';
+  matchups.forEach(m=>{
+    const ss=document.getElementById(`ss_${m.id}`), lg=document.getElementById(`lg_${m.id}`), w=document.getElementById(`win_${m.id}`);
+    const t1=document.getElementById(`t1name_${m.id}`), t2=document.getElementById(`t2name_${m.id}`);
+    if(ss) m.seriesScore=ss.value||null; if(lg) m.latestGame=lg.value||null; if(w) m.winner=w.value||null;
+    if(t1&&t1.value) m.t1=t1.value; if(t2&&t2.value) m.t2=t2.value;
   });
-  // Save deadline too
-  const dlEl = document.getElementById('dlInput');
-  if (dlEl) deadline.label = dlEl.value;
-  const rows = matchups.map(m => ({
-    id: m.id, t1: m.t1, t2: m.t2,
-    score1: m.score1 ?? '', score2: m.score2 ?? '', winner: m.winner || '',
-    seriesScore: m.seriesScore || '', latestGame: m.latestGame || ''
-  }));
-  const [r1, r2] = await Promise.all([
-    apiPost({ action: 'saveResults', data: rows }),
-    apiPost({ action: 'saveDeadline', data: [{ label: deadline.label }] })
-  ]);
-  if (r1 && r1.success) {
-    document.getElementById('adminStatus').textContent = '✓ Saved';
-    showToast('Results saved ✓');
-    renderDeadline();
-    renderBracket();
-    if (activeMain === 'standings') renderStandings();
-    setTimeout(() => document.getElementById('adminStatus').textContent = '', 3000);
-  } else {
-    document.getElementById('adminStatus').textContent = '✗ Error saving';
-  }
+  const dlEl=document.getElementById('dlInput'); if(dlEl) deadline.label=dlEl.value;
+  const rows=matchups.map(m=>({id:m.id,t1:m.t1,t2:m.t2,score1:m.score1??'',score2:m.score2??'',winner:m.winner||'',seriesScore:m.seriesScore||'',latestGame:m.latestGame||''}));
+  const [r1,r2]=await Promise.all([apiPost({action:'saveResults',data:rows}),apiPost({action:'saveDeadline',data:[{label:deadline.label}]})]);
+  if(r1&&r1.success){
+    document.getElementById('adminStatus').textContent='✓ Saved'; showToast('Results saved ✓');
+    renderDeadline(); renderBracket(); if(activeMain==='standings')renderStandings();
+    setTimeout(()=>document.getElementById('adminStatus').textContent='',3000);
+  } else { document.getElementById('adminStatus').textContent='✗ Error saving'; }
 }
 
-// ---- Status indicator ----
+// ---- Status ----
 function setStatus(state) {
-  const dot = document.getElementById('statusDot');
-  const txt = document.getElementById('statusText');
-  if (state === 'loading') { dot.className='status-dot'; txt.textContent='Loading...'; }
-  else if (state === 'ok') { dot.className='status-dot live'; txt.textContent=`Updated ${new Date().toLocaleTimeString()}`; }
-  else if (state === 'error') { dot.className='status-dot'; txt.textContent='Could not connect — showing cached data'; }
+  const dot=document.getElementById('statusDot'), txt=document.getElementById('statusText');
+  if(state==='loading'){dot.className='status-dot';txt.textContent='Loading...';}
+  else if(state==='ok'){dot.className='status-dot live';txt.textContent=`Updated ${new Date().toLocaleTimeString()}`;}
+  else{dot.className='status-dot';txt.textContent='Could not connect — showing cached data';}
 }
 
-// ---- Main view toggle ----
+// ---- Main view ----
 function showMain(view) {
-  activeMain = view;
-  document.getElementById('viewBracket').style.display = view==='bracket' ? '' : 'none';
-  document.getElementById('viewStandings').style.display = view==='standings' ? '' : 'none';
-  document.getElementById('btnBracket').classList.toggle('active', view==='bracket');
-  document.getElementById('btnStandings').classList.toggle('active', view==='standings');
-  if (view === 'standings') renderStandings();
+  activeMain=view;
+  document.getElementById('viewBracket').style.display=view==='bracket'?'':'none';
+  document.getElementById('viewStandings').style.display=view==='standings'?'':'none';
+  document.getElementById('btnBracket').classList.toggle('active',view==='bracket');
+  document.getElementById('btnStandings').classList.toggle('active',view==='standings');
+  if(view==='standings')renderStandings();
 }
 
 // ---- Panel toggle ----
 function togglePanel(which) {
-  const panels = { adminLogin:'adminLoginPanel', picks:'picksPanel', admin:'adminPanel' };
-  const btns = { picks:'btnPicks', admin:'btnAdmin', adminLogin:'btnAdminLogin' };
-  Object.keys(panels).forEach(k => {
-    const isTarget = k === which;
-    const panel = document.getElementById(panels[k]);
-    const wasOpen = panel.classList.contains('open');
-    panel.classList.toggle('open', isTarget && !wasOpen);
-    if (btns[k]) document.getElementById(btns[k])?.classList.toggle('active', isTarget && !wasOpen);
+  const map={adminLogin:'adminLoginPanel',picks:'picksPanel',admin:'adminPanel'};
+  const btns={picks:'btnPicks',admin:'btnAdmin',adminLogin:'btnAdminLogin'};
+  Object.keys(map).forEach(k=>{
+    const isTarget=k===which, panel=document.getElementById(map[k]), wasOpen=panel.classList.contains('open');
+    panel.classList.toggle('open',isTarget&&!wasOpen);
+    if(btns[k]) document.getElementById(btns[k])?.classList.toggle('active',isTarget&&!wasOpen);
   });
-  if (which === 'picks' && document.getElementById('picksPanel').classList.contains('open')) renderPicksPanel();
-  if (which === 'admin' && document.getElementById('adminPanel').classList.contains('open')) renderAdmin();
+  if(which==='picks'&&document.getElementById('picksPanel').classList.contains('open'))renderPicksPanel();
+  if(which==='admin'&&document.getElementById('adminPanel').classList.contains('open'))renderAdmin();
 }
 
 // ---- Deadline ----
@@ -539,64 +402,65 @@ function renderDeadline() {
     ? `<span class="deadline-display">${deadline.label}</span>`
     : `<span class="deadline-sub">No deadline set</span>`;
 }
+function attachDeadlineBtn() {
+  document.getElementById('editDeadlineBtn').onclick = () => {
+    const bar=document.getElementById('deadlineBar');
+    bar.innerHTML=`<label>📅 Picks deadline:</label><input type="text" id="dlLabel" value="${deadline.label}" style="flex:1;max-width:340px;padding:5px 9px;border-radius:8px;border:0.5px solid #ddd;background:#fff;color:#111;font-size:13px;"><button class="save-btn" id="saveDl">Save</button><button class="save-btn" id="cancelDl">Cancel</button>`;
+    document.getElementById('saveDl').onclick=()=>{deadline.label=document.getElementById('dlLabel').value;rebuildDeadlineBar();};
+    document.getElementById('cancelDl').onclick=rebuildDeadlineBar;
+  };
+}
+function rebuildDeadlineBar(){
+  document.getElementById('deadlineBar').innerHTML=`<label>📅 Picks deadline:</label><div id="deadlineDisplay" style="flex:1;"></div><button class="save-btn" id="editDeadlineBtn">Set deadline</button>`;
+  renderDeadline(); attachDeadlineBtn();
+}
 
 // ---- Upset detection ----
 function isUpset(game, winner) {
-  if (!winner || !game.winner) return false;
-  if (game.round === 'playin') return false;
-  if (game.round === 'r4') {
-    const {t1Wins,t2Wins,t1Diff,t2Diff} = finalsRecords;
-    if (t1Wins === null || t2Wins === null) return false;
-    const fav = t1Wins !== t2Wins ? (t1Wins > t2Wins ? game.t1 : game.t2) : (t1Diff !== null && t2Diff !== null ? (t1Diff >= t2Diff ? game.t1 : game.t2) : null);
-    return fav ? winner !== fav : false;
+  if(!winner||!game.winner) return false;
+  if(game.round==='playin') return false;
+  if(game.round==='r4'){
+    const{t1Wins,t2Wins,t1Diff,t2Diff}=finalsRecords;
+    if(t1Wins===null||t2Wins===null)return false;
+    const fav=t1Wins!==t2Wins?(t1Wins>t2Wins?game.t1:game.t2):(t1Diff!==null&&t2Diff!==null?(t1Diff>=t2Diff?game.t1:game.t2):null);
+    return fav?winner!==fav:false;
   }
-  const ws = winner === game.t1 ? game.s1 : game.s2;
-  const ls = winner === game.t1 ? game.s2 : game.s1;
-  return ws !== null && ls !== null && ws > ls;
+  const ws=winner===game.t1?game.s1:game.s2, ls=winner===game.t1?game.s2:game.s1;
+  return ws!==null&&ls!==null&&ws>ls;
 }
 
 // ---- Scoring ----
 function calcScores() {
-  return PLAYERS.map(p => {
-    let total = 0;
-    const bd = { playin:0, r1:0, r2:0, r3:0, r4:0, upset:0 };
-    PLAYIN.forEach(pg => {
-      const pk = (playinPicks[p]||{})[pg.id] || '';
-      if (pk && pg.winner && pk === pg.winner) { total++; bd.playin++; }
+  return PLAYERS.map(p=>{
+    let total=0; const bd={playin:0,r1:0,r2:0,r3:0,r4:0,upset:0};
+    PLAYIN.forEach(pg=>{const pk=(playinPicks[p]||{})[pg.id]||'';if(pk&&pg.winner&&pk===pg.winner){total++;bd.playin++;}});
+    matchups.forEach(m=>{
+      if(!m.winner)return; const pk=picks[p][m.id]||''; if(!pk||pk!==m.winner)return;
+      const base=ROUND_PTS[m.round]||0, bonus=isUpset(m,m.winner)?(UPSET_BONUS[m.round]||0):0;
+      total+=base+bonus; bd[m.round]=(bd[m.round]||0)+base; bd.upset+=bonus;
     });
-    matchups.forEach(m => {
-      if (!m.winner) return;
-      const pk = picks[p][m.id] || '';
-      if (!pk || pk !== m.winner) return;
-      const base = ROUND_PTS[m.round] || 0;
-      const bonus = isUpset(m, m.winner) ? (UPSET_BONUS[m.round] || 0) : 0;
-      total += base + bonus;
-      bd[m.round] = (bd[m.round] || 0) + base;
-      bd.upset += bonus;
-    });
-    return { player:p, total, bd };
-  }).sort((a,b) => b.total - a.total);
+    return{player:p,total,bd};
+  }).sort((a,b)=>b.total-a.total);
 }
 
 // ---- Pick % ----
 function getPickPct(mid) {
-  const m = matchups.find(x=>x.id===mid);
-  if (!m || m.t1.startsWith('TBD') || m.t2.startsWith('TBD')) return null;
+  const m=matchups.find(x=>x.id===mid); if(!m||m.t1.startsWith('TBD')||m.t2.startsWith('TBD'))return null;
   let c1=0,c2=0,p1=[],p2=[];
-  PLAYERS.forEach(p => { if(picks[p][mid]===m.t1){c1++;p1.push(p);}else if(picks[p][mid]===m.t2){c2++;p2.push(p);} });
-  const tot=c1+c2; if(!tot) return null;
-  return {t1:m.t1,t2:m.t2,pct1:Math.round(c1/tot*100),pct2:Math.round(c2/tot*100),pickers1:p1,pickers2:p2};
+  PLAYERS.forEach(p=>{if(picks[p][mid]===m.t1){c1++;p1.push(p);}else if(picks[p][mid]===m.t2){c2++;p2.push(p);}});
+  const tot=c1+c2; if(!tot)return null;
+  return{t1:m.t1,t2:m.t2,pct1:Math.round(c1/tot*100),pct2:Math.round(c2/tot*100),pickers1:p1,pickers2:p2};
 }
 function getPlayinPct(pid) {
-  const pg=PLAYIN.find(x=>x.id===pid); if(!pg) return null;
+  const pg=PLAYIN.find(x=>x.id===pid); if(!pg)return null;
   let c1=0,c2=0,p1=[],p2=[];
-  PLAYERS.forEach(p => { const v=(playinPicks[p]||{})[pid]; if(v===pg.t1){c1++;p1.push(p);}else if(v===pg.t2){c2++;p2.push(p);} });
-  const tot=c1+c2; if(!tot) return null;
-  return {t1:pg.t1,t2:pg.t2,pct1:Math.round(c1/tot*100),pct2:Math.round(c2/tot*100),pickers1:p1,pickers2:p2};
+  PLAYERS.forEach(p=>{const v=(playinPicks[p]||{})[pid];if(v===pg.t1){c1++;p1.push(p);}else if(v===pg.t2){c2++;p2.push(p);}});
+  const tot=c1+c2; if(!tot)return null;
+  return{t1:pg.t1,t2:pg.t2,pct1:Math.round(c1/tot*100),pct2:Math.round(c2/tot*100),pickers1:p1,pickers2:p2};
 }
 function pctHTML(d) {
-  if(!d) return '';
-  return `<div class="pct-bar-wrap">
+  if(!d)return'';
+  return`<div class="pct-bar-wrap">
     <div class="pct-row"><span class="pct-tname">${d.t1.split(' ').slice(-1)[0]}</span><div class="pct-bar-bg"><div class="pct-bar-fill" style="width:${d.pct1}%;background:#3b82f6"></div></div><span class="pct-val">${d.pct1}%</span></div>
     <div class="pct-pickers">${d.pickers1.join(', ')||'—'}</div>
     <div class="pct-row"><span class="pct-tname">${d.t2.split(' ').slice(-1)[0]}</span><div class="pct-bar-bg"><div class="pct-bar-fill" style="width:${d.pct2}%;background:#6366f1"></div></div><span class="pct-val">${d.pct2}%</span></div>
@@ -606,38 +470,38 @@ function pctHTML(d) {
 
 // ---- Team row ----
 function teamRowHTML(team, seed, score, isWinner, pick, status) {
-  let rc='team-row', dot='background:transparent', tn='', sc='color:#888';
-  const cls = [];
-  if (pick === team) {
-    rc += ' picked-bg';
-    if (status==='correct') { dot='background:#16a34a'; cls.push('pick-correct'); sc=isWinner?'color:#16a34a;font-weight:600':'color:#16a34a'; }
-    else if (status==='wrong') { dot='background:#dc2626'; cls.push('pick-wrong'); sc='color:#dc2626'; }
-    else { dot='background:#9ca3af'; cls.push('pick-pending'); }
+  let rc='team-row', dot='background:transparent'; const cls=[];
+  if(pick===team){
+    rc+=' picked-bg';
+    if(status==='correct'){dot='background:#16a34a';cls.push('pick-correct');}
+    else if(status==='wrong'){dot='background:#dc2626';cls.push('pick-wrong');}
+    else{dot='background:#9ca3af';cls.push('pick-pending');}
   }
-  if (cls.length) rc += ' ' + cls.join(' ');
-  const sv = score !== null ? score : '';
-  const winSc = isWinner && score !== null ? 'color:#16a34a;font-weight:600' : sc;
-  return `<div class="${rc}"><div class="tl"><span class="dot" style="${dot}"></span>${seed?`<span class="seed">${seed}</span>`:''}<span class="tname">${team}</span></div><span class="tscore" style="${winSc}">${sv}</span></div>`;
+  if(cls.length) rc+=' '+cls.join(' ');
+  const sv=score!==null?score:'';
+  const winSc=isWinner&&score!==null?'color:#16a34a;font-weight:600':'color:#888';
+  return`<div class="${rc}"><div class="tl"><span class="dot" style="${dot}"></span>${seed?`<span class="seed">${seed}</span>`:''}<span class="tname">${team}</span></div><span class="tscore" style="${winSc}">${sv}</span></div>`;
 }
 
 // ---- Status helpers ----
-function getStatus(mid, pick) {
-  const m=matchups.find(x=>x.id===mid);
-  if(!pick)return'none'; if(!m||!m.winner)return'pending';
-  return m.winner===pick?'correct':'wrong';
-}
-function getPiStatus(pid, pick) {
-  const pg=PLAYIN.find(x=>x.id===pid);
-  if(!pick||!pg)return'none'; if(!pg.winner)return'pending';
-  return pg.winner===pick?'correct':'wrong';
-}
+function getStatus(mid,pick){const m=matchups.find(x=>x.id===mid);if(!pick)return'none';if(!m||!m.winner)return'pending';return m.winner===pick?'correct':'wrong';}
+function getPiStatus(pid,pick){const pg=PLAYIN.find(x=>x.id===pid);if(!pick||!pg)return'none';if(!pg.winner)return'pending';return pg.winner===pick?'correct':'wrong';}
+
+// ---- Round config ----
+const ROUNDS = [
+  {id:'r1', label:'First Round'},
+  {id:'r2', label:'Conference Semifinals'},
+  {id:'r3', label:'Conference Finals'},
+  {id:'r4', label:'NBA Finals'},
+];
 
 // ---- Bracket render ----
 function renderBracket() {
   const pp=picks[activePlayer], ppi=playinPicks[activePlayer]||{};
   let html='';
+  // Play-in
   html+=`<div class="round-section"><div class="round-label">Play-In Tournament</div><div class="matchups-grid">`;
-  PLAYIN.forEach(pg => {
+  PLAYIN.forEach(pg=>{
     const pick=ppi[pg.id]||'', st=getPiStatus(pg.id,pick), pct=getPlayinPct(pg.id);
     html+=`<div class="m-card"><div class="card-top"><span class="badge ${pg.badge}">${pg.badgeText}</span><span class="m-label">${pg.label}</span></div>
       ${teamRowHTML(pg.t1,pg.s1,pg.score1,pg.winner===pg.t1,pick,st)}
@@ -645,19 +509,21 @@ function renderBracket() {
       ${pctHTML(pct)}</div>`;
   });
   html+=`</div></div>`;
-  [['r1','First Round'],['r2','Conference Semifinals'],['r3','Conference Finals'],['r4','NBA Finals']].forEach(([rid,rlabel]) => {
+
+  ROUNDS.forEach(({id:rid,label:rlabel})=>{
     const rms=matchups.filter(m=>m.round===rid);
     html+=`<div class="round-section"><div class="round-label">${rlabel}</div><div class="matchups-grid">`;
-    rms.forEach(m => {
+    rms.forEach(m=>{
       const isTBD=m.t1==='TBD'&&m.t2==='TBD', hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD');
       const pick=pp[m.id]||'', st=getStatus(m.id,pick), pct=getPickPct(m.id);
       const upset=m.winner&&isUpset(m,m.winner);
-      const seriesInfo = m.seriesScore ? `<div style="font-size:10px;color:#888;margin-bottom:5px;">${m.seriesScore}${m.latestGame?' · '+m.latestGame:''}</div>` : (m.latestGame ? `<div style="font-size:10px;color:#888;margin-bottom:5px;">${m.latestGame}</div>` : '');
-      const badge=isTBD?`<span class="badge b-tbd">Awaiting</span>`:hasTBD?`<span class="badge b-upcoming">Upcoming</span>`:m.winner?`<span class="badge b-final">Final${upset?' 🔥':''}</span>`:`<span class="badge b-upcoming">Upcoming</span>`;
-      if(isTBD){
+      const badge=isTBD?`<span class="badge b-tbd">Awaiting</span>`:hasTBD?`<span class="badge b-tbd">Awaiting</span>`:m.winner?`<span class="badge b-final">Final${upset?' 🔥':''}</span>`:`<span class="badge b-active">Upcoming</span>`;
+      const oddsTag=m.odds&&!m.winner?`<span class="odds-tag">📊 ${m.oddsT1} / ${m.oddsT2}</span>`:'';
+      const seriesInfo=m.seriesScore||m.latestGame?`<div class="series-info">${m.seriesScore?`<span>${m.seriesScore}</span>`:''}${m.latestGame?`<span style="color:#bbb">· ${m.latestGame}</span>`:''}</div>`:'';
+      if(isTBD||hasTBD){
         html+=`<div class="m-card"><div class="card-top">${badge}<span class="m-label">${m.label}</span></div><div style="font-size:12px;color:#aaa;padding:4px 2px">Teams TBD after previous round</div></div>`;
       } else {
-        html+=`<div class="m-card"><div class="card-top">${badge}<span class="m-label">${m.label}</span></div>
+        html+=`<div class="m-card"><div class="card-top">${badge}<span class="m-label">${m.label}</span>${oddsTag}</div>
           ${seriesInfo}
           ${teamRowHTML(m.t1,m.s1,m.score1,m.winner===m.t1,pick,st)}
           <hr class="vs-hr">${teamRowHTML(m.t2,m.s2,m.score2,m.winner===m.t2,pick,st)}
@@ -670,102 +536,78 @@ function renderBracket() {
 }
 
 // ---- Player tabs ----
-function renderTabs() {
-  document.getElementById('playerTabs').innerHTML=PLAYERS.map(p=>
-    `<button class="ptab ${p===activePlayer?'active':''}" onclick="setPlayer('${p}')">${p}</button>`).join('');
-}
+function renderTabs(){document.getElementById('playerTabs').innerHTML=PLAYERS.map(p=>`<button class="ptab ${p===activePlayer?'active':''}" onclick="setPlayer('${p}')">${p}</button>`).join('');}
 function setPlayer(p){activePlayer=p;renderTabs();renderBracket();}
 
 // ---- Picks panel ----
 function renderPicksPanel() {
   document.getElementById('pickPlayerName').textContent=activePickPlayer;
-  document.getElementById('pickPlayerTabs').innerHTML=PLAYERS.map(p=>
-    `<button class="ptab ${p===activePickPlayer?'active':''}" onclick="setPickPlayer('${p}')">${p}</button>`).join('');
-  const pp=picks[activePickPlayer];
-  const ppi=playinPicks[activePickPlayer]||{};
+  document.getElementById('pickPlayerTabs').innerHTML=PLAYERS.map(p=>`<button class="ptab ${p===activePickPlayer?'active':''}" onclick="setPickPlayer('${p}')">${p}</button>`).join('');
+  const pp=picks[activePickPlayer], ppi=playinPicks[activePickPlayer]||{};
   let html='';
-
-  // Play-in games (editable)
-  html+=`<div style="font-size:11px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin:4px 0 8px;grid-column:1/-1;">Play-In Tournament</div>`;
-  PLAYIN.forEach(pg => {
-    const current = ppi[pg.id] || '';
-    const isSettled = !!pg.winner;
-    const opts = `<option value="">— no pick —</option><option value="${pg.t1}" ${current===pg.t1?'selected':''}>${pg.t1}</option><option value="${pg.t2}" ${current===pg.t2?'selected':''}>${pg.t2}</option>`;
-    html+=`<div class="panel-card"><div class="panel-card-label">${pg.label}</div><select class="pick-sel" id="ppi_${pg.id}" ${isSettled?'disabled title="Game already played"':''}>${opts}</select>${isSettled?`<div style="font-size:10px;color:#aaa;margin-top:4px;">Final — locked</div>`:''}</div>`;
+  // Play-in section
+  html+=`<div class="section-header">Play-In Tournament</div>`;
+  PLAYIN.forEach(pg=>{
+    const current=ppi[pg.id]||'', isSettled=!!pg.winner;
+    html+=`<div class="panel-card"><div class="panel-card-label">${pg.label}</div>
+      <select class="pick-sel" id="ppi_${pg.id}" ${isSettled?'disabled title="Game already played"':''}>
+        <option value="">— no pick —</option>
+        <option value="${pg.t1}" ${current===pg.t1?'selected':''}>${pg.t1}</option>
+        <option value="${pg.t2}" ${current===pg.t2?'selected':''}>${pg.t2}</option>
+      </select>${isSettled?`<div style="font-size:10px;color:#aaa;margin-top:4px;">Final — locked</div>`:''}</div>`;
   });
-
-  // Bracket picks
-  html+=`<div style="font-size:11px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin:12px 0 8px;grid-column:1/-1;">Playoff Bracket</div>`;
-  matchups.forEach(m => {
-    const hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD'), isTBD=m.t1==='TBD'&&m.t2==='TBD';
-    if(isTBD)return;
-    const opts=hasTBD?`<option value="">TBD after play-in</option>`
-      :`<option value="">— no pick —</option><option value="${m.t1}" ${pp[m.id]===m.t1?'selected':''}>${m.t1}</option><option value="${m.t2}" ${pp[m.id]===m.t2?'selected':''}>${m.t2}</option>`;
-    html+=`<div class="panel-card"><div class="panel-card-label">${m.label}</div><select class="pick-sel" id="pick_${m.id}" ${hasTBD?'disabled':''}>${opts}</select></div>`;
+  // First Round
+  html+=`<div class="section-header">First Round</div>`;
+  matchups.filter(m=>m.round==='r1').forEach(m=>{
+    html+=`<div class="panel-card"><div class="panel-card-label">${m.label}</div>
+      <select class="pick-sel" id="pick_${m.id}" ${m.winner?'disabled':''}><option value="">— no pick —</option>
+        <option value="${m.t1}" ${pp[m.id]===m.t1?'selected':''}>${m.t1}</option>
+        <option value="${m.t2}" ${pp[m.id]===m.t2?'selected':''}>${m.t2}</option>
+      </select>${m.winner?`<div style="font-size:10px;color:#aaa;margin-top:4px;">Series over — locked</div>`:''}</div>`;
+  });
+  // Conference Semifinals
+  html+=`<div class="section-header">Conference Semifinals</div>`;
+  matchups.filter(m=>m.round==='r2').forEach(m=>{
+    const hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD');
+    const opts=hasTBD?`<option value="">TBD</option>`:`<option value="">— no pick —</option><option value="${m.t1}" ${pp[m.id]===m.t1?'selected':''}>${m.t1}</option><option value="${m.t2}" ${pp[m.id]===m.t2?'selected':''}>${m.t2}</option>`;
+    html+=`<div class="panel-card"><div class="panel-card-label">${m.label}${m.odds?` <span style="color:#aaa;font-size:10px;">(${m.oddsT1}/${m.oddsT2})</span>`:''}</div>
+      <select class="pick-sel" id="pick_${m.id}" ${hasTBD||m.winner?'disabled':''}>${opts}</select></div>`;
+  });
+  // Conference Finals & Finals
+  ['r3','r4'].forEach(rid=>{
+    const label = rid==='r3' ? 'Conference Finals' : 'NBA Finals';
+    html+=`<div class="section-header">${label}</div>`;
+    matchups.filter(m=>m.round===rid).forEach(m=>{
+      const hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD');
+      html+=`<div class="panel-card"><div class="panel-card-label">${m.label}</div>
+        <select class="pick-sel" id="pick_${m.id}" disabled><option value="">TBD — picks open after Semis</option></select></div>`;
+    });
   });
   document.getElementById('picksGrid').innerHTML=html;
 }
 function setPickPlayer(p){
-  // Save current bracket picks before switching
-  matchups.forEach(m=>{const el=document.getElementById(`pick_${m.id}`);if(el)picks[activePickPlayer][m.id]=el.value;});
-  // Save current playin picks before switching
-  PLAYIN.forEach(pg=>{const el=document.getElementById(`ppi_${pg.id}`);if(el)playinPicks[activePickPlayer][pg.id]=el.value;});
+  matchups.forEach(m=>{const el=document.getElementById(`pick_${m.id}`);if(el&&!el.disabled)picks[activePickPlayer][m.id]=el.value;});
+  PLAYIN.forEach(pg=>{const el=document.getElementById(`ppi_${pg.id}`);if(el&&!el.disabled)playinPicks[activePickPlayer][pg.id]=el.value;});
   activePickPlayer=p; renderPicksPanel();
 }
 
-// ---- NBA playoff series auto-fetch ----
-// Maps our matchup IDs to NBA.com series data using team abbreviations
-const SERIES_MAP = {
-  e1: {t1:'DET',t2:'ORL'}, e2: {t1:'BOS',t2:'PHI'}, e3: {t1:'NYK',t2:'ATL'}, e4: {t1:'CLE',t2:'TOR'},
-  w1: {t1:'OKC',t2:'PHX'}, w2: {t1:'SAS',t2:'POR'}, w3: {t1:'DEN',t2:'MIN'}, w4: {t1:'LAL',t2:'HOU'},
-};
-
-async function fetchNBASeriesScores() {
-  try {
-    const res = await fetch('https://cdn.nba.com/static/json/liveData/series/series_leaders.json', { cache: 'no-store' });
-    const data = await res.json();
-    const series = data?.resultSets?.[0]?.rowSet || [];
-    let updated = false;
-    series.forEach(row => {
-      // NBA series row: [leagueId, seriesId, homeTeamId, awayTeamId, homeWins, awayWins, gameLabel, ...]
-      // Use team abbreviation matching
-      const homeAbbr = row[4], awayAbbr = row[5], homeWins = row[6], awayWins = row[7];
-      Object.entries(SERIES_MAP).forEach(([mid, teams]) => {
-        const m = matchups.find(x => x.id === mid);
-        if (!m || m.winner) return;
-        const match = (homeAbbr === teams.t1 && awayAbbr === teams.t2) || (homeAbbr === teams.t2 && awayAbbr === teams.t1);
-        if (!match) return;
-        const t1wins = homeAbbr === teams.t1 ? homeWins : awayWins;
-        const t2wins = homeAbbr === teams.t1 ? awayWins : homeWins;
-        const newSeries = `${t1wins}-${t2wins}`;
-        const label = t1wins > t2wins ? `${m.t1} lead ${t1wins}-${t2wins}` : t2wins > t1wins ? `${m.t2} lead ${t2wins}-${t1wins}` : `Series tied ${t1wins}-${t2wins}`;
-        if (t1wins === 4) { m.winner = m.t1; m.score1 = 4; m.score2 = t2wins; }
-        else if (t2wins === 4) { m.winner = m.t2; m.score1 = t1wins; m.score2 = 4; }
-        else { m.score1 = t1wins; m.score2 = t2wins; }
-        m.seriesScore = label;
-        updated = true;
-      });
-    });
-    if (updated) { renderBracket(); if (activeMain==='standings') renderStandings(); }
-  } catch(e) {
-    // Silently fail — data stays as-is
-  }
-}
-
-// ---- Admin panel with series score fields ----
+// ---- Admin panel ----
 function renderAdmin() {
   let html=`<div class="panel-card" style="grid-column:1/-1;">
     <div class="panel-card-label">Picks deadline label</div>
-    <input type="text" id="dlInput" value="${deadline.label}" placeholder="e.g. Round 1 — Sat Apr 19, 12pm ET" style="width:100%;padding:5px 8px;border-radius:8px;border:0.5px solid #ddd;font-size:13px;background:#fff;color:#111;">
+    <input type="text" id="dlInput" value="${deadline.label}" placeholder="e.g. Semis picks due tonight 8pm ET" style="width:100%;padding:5px 8px;border-radius:8px;border:0.5px solid #ddd;font-size:13px;background:#fff;color:#111;">
   </div>`;
-  matchups.forEach(m => {
+  matchups.forEach(m=>{
     if(m.t1==='TBD'&&m.t2==='TBD')return;
     const hasTBD=m.t1.startsWith('TBD')||m.t2.startsWith('TBD');
+    const t1inp=hasTBD&&m.t1.startsWith('TBD')?`<input type="text" id="t1name_${m.id}" placeholder="Team 1 name" style="width:100%;padding:3px 6px;border-radius:6px;border:0.5px solid #ddd;font-size:11px;margin-bottom:4px;">`:``;
+    const t2inp=hasTBD&&m.t2.startsWith('TBD')?`<input type="text" id="t2name_${m.id}" placeholder="Team 2 name" style="width:100%;padding:3px 6px;border-radius:6px;border:0.5px solid #ddd;font-size:11px;margin-bottom:4px;">`:``;
     html+=`<div class="panel-card"><div class="panel-card-label">${m.label}</div>
-      <div class="admin-row"><label style="color:#777;font-size:11px;">Series score (e.g. "Lakers lead 2-1")</label></div>
-      <div class="admin-row"><input type="text" id="ss_${m.id}" value="${m.seriesScore||''}" placeholder="e.g. Knicks lead 1-0" style="width:100%;padding:3px 6px;border-radius:6px;border:0.5px solid #ddd;font-size:12px;background:#fff;color:#111;margin-bottom:4px;"></div>
-      <div class="admin-row"><label style="color:#777;font-size:11px;">Latest game (e.g. "G2: 112-98")</label></div>
-      <div class="admin-row"><input type="text" id="lg_${m.id}" value="${m.latestGame||''}" placeholder="e.g. G1: 113-102" style="width:100%;padding:3px 6px;border-radius:6px;border:0.5px solid #ddd;font-size:12px;background:#fff;color:#111;margin-bottom:4px;"></div>
+      ${t1inp}${t2inp}
+      <div class="admin-row"><label style="color:#888;font-size:11px;">Series score</label></div>
+      <input type="text" id="ss_${m.id}" value="${m.seriesScore||''}" placeholder="e.g. Knicks lead 2-1" style="width:100%;padding:3px 6px;border-radius:6px;border:0.5px solid #ddd;font-size:12px;background:#fff;color:#111;margin-bottom:5px;">
+      <div class="admin-row"><label style="color:#888;font-size:11px;">Latest game result</label></div>
+      <input type="text" id="lg_${m.id}" value="${m.latestGame||''}" placeholder="e.g. G1: 112-98" style="width:100%;padding:3px 6px;border-radius:6px;border:0.5px solid #ddd;font-size:12px;background:#fff;color:#111;margin-bottom:5px;">
       ${!hasTBD?`<div class="admin-row"><label style="color:#777">Series winner</label>
         <select class="win-sel" id="win_${m.id}">
           <option value="">— not yet —</option>
@@ -779,17 +621,12 @@ function renderAdmin() {
 
 // ---- Standings ----
 function renderStandings() {
-  const scores=calcScores();
-  const medals=['🥇','🥈','🥉'];
+  const scores=calcScores(), medals=['🥇','🥈','🥉'];
   let html=`<div class="scoring-key"><div class="scoring-key-title">Scoring system</div><div class="scoring-grid">
-    <span class="sc-chip"><b>Play-in:</b> 1 pt</span>
-    <span class="sc-chip"><b>Round 1:</b> 3 pts</span>
-    <span class="sc-chip"><b>Semis:</b> 5 pts</span>
-    <span class="sc-chip"><b>Conf Finals:</b> 7 pts</span>
-    <span class="sc-chip"><b>Finals:</b> 9 pts</span>
-    <span class="sc-chip"><b>Upset R1:</b> +1</span>
-    <span class="sc-chip"><b>Upset R2/R3:</b> +2</span>
-    <span class="sc-chip"><b>Upset Finals:</b> +3</span>
+    <span class="sc-chip"><b>Play-in:</b> 1 pt</span><span class="sc-chip"><b>Round 1:</b> 3 pts</span>
+    <span class="sc-chip"><b>Semis:</b> 5 pts</span><span class="sc-chip"><b>Conf Finals:</b> 7 pts</span>
+    <span class="sc-chip"><b>Finals:</b> 9 pts</span><span class="sc-chip"><b>Upset R1:</b> +1</span>
+    <span class="sc-chip"><b>Upset R2/R3:</b> +2</span><span class="sc-chip"><b>Upset Finals:</b> +3</span>
   </div></div>`;
   let prevTotal=null, rank=0;
   scores.forEach((s,i)=>{
@@ -816,9 +653,8 @@ function renderStandings() {
       </div>
     </div>`;
   });
-  // Finals tiebreaker
   html+=`<div style="margin-top:1.5rem;background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;padding:14px 16px;">
-    <div style="font-size:11px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Finals upset tiebreaker</div>
+    <div style="font-size:11px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Finals upset tiebreaker (enter when Finals matchup is set)</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       ${['t1Wins','t2Wins','t1Diff','t2Diff'].map((k,i)=>`<div><label style="font-size:11px;color:#888;display:block;margin-bottom:4px;">${['Team 1 wins','Team 2 wins','Team 1 pt diff','Team 2 pt diff'][i]}</label><input type="number" id="fr_${k}" value="${finalsRecords[k]??''}" placeholder="—" style="width:80px;padding:4px 6px;border-radius:8px;border:0.5px solid #ddd;background:#fff;color:#111;font-size:12px;"></div>`).join('')}
     </div>
@@ -826,30 +662,14 @@ function renderStandings() {
   </div>`;
   document.getElementById('viewStandings').innerHTML=html;
 }
-function saveFinalsRecords(){
-  ['t1Wins','t2Wins','t1Diff','t2Diff'].forEach(k=>{
-    const v=document.getElementById(`fr_${k}`).value;
-    finalsRecords[k]=v!==''?parseFloat(v):null;
-  });
-  renderStandings();
-}
+function saveFinalsRecords(){['t1Wins','t2Wins','t1Diff','t2Diff'].forEach(k=>{const v=document.getElementById(`fr_${k}`).value;finalsRecords[k]=v!==''?parseFloat(v):null;});renderStandings();}
 
-// ---- Auto-refresh every 2 min ----
-function startAutoRefresh() {
-  if (autoRefreshTimer) clearInterval(autoRefreshTimer);
-  autoRefreshTimer = setInterval(async () => {
-    await loadData();
-    await fetchNBASeriesScores();
-  }, 120000);
-}
+// ---- Auto-refresh ----
+function startAutoRefresh(){if(autoRefreshTimer)clearInterval(autoRefreshTimer);autoRefreshTimer=setInterval(()=>loadData(),120000);}
 
 // ---- Init ----
-renderTabs();
-renderDeadline();
-loadData().then(() => {
-  fetchNBASeriesScores();
-  startAutoRefresh();
-});
+renderDeadline(); renderTabs(); renderBracket();
+loadData().then(()=>startAutoRefresh());
 </script>
 </body>
 </html>
